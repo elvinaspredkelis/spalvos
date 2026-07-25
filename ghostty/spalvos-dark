@@ -1,0 +1,55 @@
+# Spalvos Dark — ghostty port of the spalvos color system
+# Structure adjusted in reference to Catppuccin Macchiato's ghostty
+# theme: lifted (not true-black) background, black slot = a visible
+# surface tone, chromatic brights == normals (pastel 400 steps),
+# white ladder below the foreground, neutral selection. Deviates
+# from the CSS "TRANSPORT RECIPE" where noted — values remain
+# spalvos primitives throughout.
+
+# --- Core ---
+# paper-dark-base (the web dark theme's content canvas), not the
+# true-black floor — Macchiato-style lift (its bg is L≈18, this is
+# L≈20.5). Recipe said neutral-1000; the floor still serves as
+# cursor-text.
+background = #171717
+foreground = #ecebe9
+
+# --- ANSI palette ---
+# Black slots are SURFACE tones, not the floor (Macchiato 0=#494d64):
+# black = neutral-800, bright black = neutral-700 (comment gray).
+# White ladder sits BELOW the foreground (Macchiato 7 < 15 < fg):
+# white = neutral-300, bright white = neutral-200.
+# Chromatic brights == normals (Macchiato-style), all at the 400
+# step: pastel, and every accent clears ~4.5:1+ on the background.
+# (The recipe's 500/400 pair left normal blue at ~3.5:1 — the
+# classic blue-on-black; the 400s resolve it.)
+palette = 0=#343331
+palette = 1=#eb5d6d
+palette = 2=#5ec990
+palette = 3=#f99b56
+palette = 4=#5b7ef0
+palette = 5=#de54b3
+palette = 6=#42cbd2
+palette = 7=#b5b4b1
+palette = 8=#41403d
+palette = 9=#eb5d6d
+palette = 10=#5ec990
+palette = 11=#f99b56
+palette = 12=#5b7ef0
+palette = 13=#de54b3
+palette = 14=#42cbd2
+palette = 15=#d5d4d2
+
+# --- Extras ---
+# Cursor = ink, cursor-text = the true-black floor (Macchiato: light
+# cursor, text darker than the bg — same structure).
+cursor-color = #ecebe9
+cursor-text = #0b0a09
+
+# Selection = a neutral surface lift (Macchiato uses a surface tone,
+# not an accent): neutral-800 with foreground ink.
+selection-background = #343331
+selection-foreground = #ecebe9
+
+# Split divider = paper-dark-raised (Macchiato sets surface0)
+split-divider-color = #1f1f1f
