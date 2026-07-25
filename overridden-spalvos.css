@@ -1,0 +1,291 @@
+@import 'tailwindcss';
+
+/*
+ * Spalvos — a transportable color system
+ *
+ * Warm ink on warm paper (Flexoki / Helply lineage), dialed toward neutral —
+ * quiet, not cold. Built to travel: the same primitives drive a light web UI,
+ * a dark web UI, and (with the recipe below) a terminal or editor theme.
+ *
+ * LAYERS
+ *   • Primitives (the portable core) — six accent ramps + one neutral spine,
+ *     authored in OKLCH, gamut-safe, perceptually even. Theme-independent;
+ *     copy this block anywhere.
+ *   • Themed tokens — surfaces (paper-*) and the semantic tokens
+ *     (background/foreground/border/…) reference the primitives, and a few
+ *     carry a light value and a dark value. A "theme" is just which value wins:
+ *     light is the default, [data-theme="dark"] repoints, a terminal repoints
+ *     again (recipe at the foot of the file).
+ *
+ * THE INVARIANT that makes dark safe: at the dark end, the darkest surface
+ * (dark `frame`) and the darkest ink are the SAME primitive — neutral-1000, the
+ * true-black floor — so a surface can never sink below the ink (the bug that
+ * plagues naive dark modes). At the light end, `raised` is pure white, the
+ * ceiling. Nothing goes beyond those two extremes.
+ *
+ * ACCENT RAMPS — blue, cyan, emerald, amber, rose, magenta: six hues spread
+ * around the wheel — the six chromatic ANSI colors (black + white come from the
+ * spine; 500/400 give the normal/bright pair, for ANSI-16). Constant hue per
+ * family; L and C interpolate between the 50 / 500 / 950 anchors in proportion
+ * to the step label (150 and 850 are true half-steps); chroma peaks at 500.
+ * Each accent runs two working weights: 500 for FILLS (with a white or dark ink
+ * twin), the darker 700 for TEXT on light — which lightens to 400 in dark mode,
+ * since a 700 can't read on a dark surface.
+ *
+ * NEUTRAL SPINE — warm hue 90, chroma tiny; the single achromatic axis for
+ * text, borders, muted fills, and the two shared extremes. 950 = light-mode
+ * text; 1000 = the true-black floor.
+ *
+ * Never signal warning vs success by hue alone — pair with an icon or label
+ * (the red-green axis is lost to deutan/protan vision).
+ */
+
+@theme static {
+  /* Replace Tailwind's default palette entirely — spalvos is the only palette. */
+  --color-*: initial;
+  --color-white: #fff;
+  --color-black: #000;
+
+  /* ============================================================= *
+   *  PRIMITIVES — the portable core. Copy this whole block.       *
+   * ============================================================= */
+
+  /* ---------- Accent ramps (six chromatic ANSI hues) ---------- */
+
+  --color-blue-50: oklch(0.96 0.018 268.04);
+  --color-blue-100: oklch(0.9122 0.0404 268.04);
+  --color-blue-150: oklch(0.8644 0.0628 268.04);
+  --color-blue-200: oklch(0.8166 0.0852 268.04);
+  --color-blue-300: oklch(0.7209 0.1301 268.04);
+  --color-blue-400: oklch(0.6253 0.1749 268.04);
+  --color-blue-500: oklch(0.5297 0.2197 268.04);
+  --color-blue-600: oklch(0.4609 0.1844 268.04);
+  --color-blue-700: oklch(0.3921 0.1492 268.04);
+  --color-blue-800: oklch(0.3232 0.1139 268.04);
+  --color-blue-850: oklch(0.2888 0.0963 268.04);
+  --color-blue-900: oklch(0.2544 0.0786 268.04);
+  --color-blue-950: oklch(0.22 0.061 268.04);
+
+  /* cyan chroma clamped to the sRGB gamut boundary (cyan tops out low) */
+  --color-cyan-50: oklch(0.96 0.028 200);
+  --color-cyan-100: oklch(0.9333 0.0404 200);
+  --color-cyan-150: oklch(0.9067 0.0529 200);
+  --color-cyan-200: oklch(0.88 0.0653 200);
+  --color-cyan-300: oklch(0.8267 0.0902 200);
+  --color-cyan-400: oklch(0.7733 0.1151 200);
+  --color-cyan-500: oklch(0.72 0.1205 200);
+  --color-cyan-600: oklch(0.6089 0.1016 200);
+  --color-cyan-700: oklch(0.4978 0.0828 200);
+  --color-cyan-800: oklch(0.3867 0.064 200);
+  --color-cyan-850: oklch(0.3311 0.0546 200);
+  --color-cyan-900: oklch(0.2756 0.0453 200);
+  --color-cyan-950: oklch(0.22 0.0362 200);
+
+  --color-emerald-50: oklch(0.96 0.025 158);
+  --color-emerald-100: oklch(0.9311 0.04 158);
+  --color-emerald-150: oklch(0.9022 0.055 158);
+  --color-emerald-200: oklch(0.8733 0.07 158);
+  --color-emerald-300: oklch(0.8156 0.1 158);
+  --color-emerald-400: oklch(0.7578 0.13 158);
+  --color-emerald-500: oklch(0.7 0.16 158);
+  --color-emerald-600: oklch(0.5933 0.1342 158);
+  --color-emerald-700: oklch(0.4867 0.1084 158);
+  --color-emerald-800: oklch(0.38 0.0827 158);
+  --color-emerald-850: oklch(0.3267 0.0698 158);
+  --color-emerald-900: oklch(0.2733 0.0569 158);
+  --color-emerald-950: oklch(0.22 0.044 158);
+
+  /* amber 100/150 chroma clamped to the sRGB gamut boundary */
+  --color-amber-50: oklch(0.96 0.023 55);
+  --color-amber-100: oklch(0.9333 0.0377 55);
+  --color-amber-150: oklch(0.9067 0.0547 55);
+  --color-amber-200: oklch(0.88 0.0737 55);
+  --color-amber-300: oklch(0.8267 0.1074 55);
+  --color-amber-400: oklch(0.7733 0.1412 55);
+  --color-amber-500: oklch(0.72 0.175 55);
+  --color-amber-600: oklch(0.6089 0.147 55);
+  --color-amber-700: oklch(0.4978 0.119 55);
+  --color-amber-800: oklch(0.3867 0.091 55);
+  --color-amber-850: oklch(0.3311 0.077 55);
+  --color-amber-900: oklch(0.2756 0.063 55);
+  --color-amber-950: oklch(0.22 0.049 55);
+
+  --color-rose-50: oklch(0.96 0.019 16.44);
+  --color-rose-100: oklch(0.9178 0.0413 16.44);
+  --color-rose-150: oklch(0.8756 0.0637 16.44);
+  --color-rose-200: oklch(0.8333 0.086 16.44);
+  --color-rose-300: oklch(0.7489 0.1307 16.44);
+  --color-rose-400: oklch(0.6644 0.1753 16.44);
+  --color-rose-500: oklch(0.58 0.22 16.44);
+  --color-rose-600: oklch(0.5 0.1847 16.44);
+  --color-rose-700: oklch(0.42 0.1493 16.44);
+  --color-rose-800: oklch(0.34 0.114 16.44);
+  --color-rose-850: oklch(0.3 0.0963 16.44);
+  --color-rose-900: oklch(0.26 0.0787 16.44);
+  --color-rose-950: oklch(0.22 0.061 16.44);
+
+  /* Fuchsia — pinker than a flat magenta (hue 342), 500 tuned so white text
+     clears AA (4.98:1). Fills the ANSI magenta slot. */
+  --color-magenta-50: oklch(0.96 0.022 342);
+  --color-magenta-100: oklch(0.9167 0.0473 342);
+  --color-magenta-150: oklch(0.8733 0.0727 342);
+  --color-magenta-200: oklch(0.83 0.098 342);
+  --color-magenta-300: oklch(0.7433 0.1487 342);
+  --color-magenta-400: oklch(0.6567 0.1993 342);
+  --color-magenta-500: oklch(0.57 0.2437 342);
+  --color-magenta-600: oklch(0.4922 0.2082 342);
+  --color-magenta-700: oklch(0.4144 0.1664 342);
+  --color-magenta-800: oklch(0.3367 0.1247 342);
+  --color-magenta-850: oklch(0.2978 0.1038 342);
+  --color-magenta-900: oklch(0.2589 0.0829 342);
+  --color-magenta-950: oklch(0.22 0.062 342);
+
+  /* ---------- Neutral spine (warm hue 90) ---------- */
+
+  --color-neutral-0: oklch(0.99 0.0015 90);
+  --color-neutral-50: oklch(0.97 0.002 90);
+  --color-neutral-100: oklch(0.94 0.003 90);
+  --color-neutral-200: oklch(0.87 0.0035 90);
+  --color-neutral-300: oklch(0.77 0.004 90);
+  --color-neutral-400: oklch(0.65 0.005 90);
+  --color-neutral-500: oklch(0.55 0.0055 90);
+  --color-neutral-600: oklch(0.45 0.0055 90);
+  --color-neutral-700: oklch(0.37 0.005 90);
+  --color-neutral-800: oklch(0.32 0.004 90);
+  --color-neutral-900: oklch(0.29 0.0035 90);
+  --color-neutral-950: oklch(0.25 0.0035 90);
+  --color-neutral-1000: oklch(0.145 0.003 90); /* true-black floor — the shared ink/surface bottom */
+
+  /* ============================================================= *
+   *  SURFACES — light theme (a tight near-white cluster).         *
+   *  raised = pure white = the ceiling; each step a touch deeper. *
+   * ============================================================= */
+
+  --color-paper-raised: oklch(1 0 0); /* cards, popovers — the ceiling */
+  --color-paper-base: oklch(0.988 0.001 90); /* content canvas / page */
+  --color-paper-wash: oklch(0.976 0.001 90); /* subtle inset, zebra rows */
+  --color-paper-sunken: oklch(0.96 0.001 90); /* input wells, hover wells */
+  --color-paper-deep: oklch(0.945 0.001 90); /* deepest inset / pressed */
+  --color-paper-frame: oklch(0.928 0.001 90); /* app chrome — sidebar, toolbar */
+
+  /* ============================================================= *
+   *  SEMANTIC — web light theme. Every token below is a REFERENCE *
+   *  into the primitives above. Retheming = repointing these.     *
+   * ============================================================= */
+
+  --color-background: var(--color-paper-base);
+  --color-foreground: var(--color-neutral-950);
+
+  /* Translucent ink — composites over any surface or tinted band */
+  --color-muted: color-mix(in srgb, var(--color-neutral-950) 5%, transparent);
+  --color-muted-fg: var(--color-neutral-600);
+  --color-border: color-mix(in srgb, var(--color-neutral-950) 20%, transparent);
+  --color-line: color-mix(in srgb, var(--color-neutral-950) 12%, transparent);
+  --color-hover: color-mix(in srgb, var(--color-neutral-950) 4%, transparent);
+  --color-active: color-mix(in srgb, var(--color-neutral-950) 8%, transparent);
+
+  --color-contrast: var(--color-neutral-1000);
+  --color-contrast-fg: var(--color-neutral-0);
+
+  /* Accents: 500 = fill (+ -fg twin), -strong (700) = text on light */
+  --color-primary: var(--color-blue-500);
+  --color-primary-fg: var(--color-neutral-0);
+  --color-primary-strong: var(--color-blue-700);
+
+  --color-success: var(--color-emerald-500);
+  --color-success-fg: var(--color-neutral-1000);
+  --color-success-strong: var(--color-emerald-700);
+
+  --color-warning: var(--color-amber-500);
+  --color-warning-fg: var(--color-neutral-1000);
+  --color-warning-strong: var(--color-amber-700);
+
+  --color-critical: var(--color-rose-500);
+  --color-critical-fg: var(--color-neutral-0);
+  --color-critical-strong: var(--color-rose-700);
+}
+
+/* ---------- High-contrast mode ----------
+   Deepens ink + hairlines, in BOTH themes. Opt-in via [data-contrast="high"]
+   or the OS prefers-contrast setting. The dark variants are more specific, so
+   they win when dark + high-contrast are both active (a light-ink override on a
+   dark surface would otherwise be unreadable). Accents and surfaces stay put. */
+:root[data-contrast="high"] {
+  --color-foreground: var(--color-neutral-1000);
+  --color-muted-fg: var(--color-neutral-700);
+  --color-border: color-mix(in srgb, var(--color-neutral-1000) 35%, transparent);
+  --color-line: color-mix(in srgb, var(--color-neutral-1000) 24%, transparent);
+}
+:root[data-theme="dark"][data-contrast="high"] {
+  --color-foreground: var(--color-neutral-0);
+  --color-muted-fg: var(--color-neutral-300);
+  --color-border: color-mix(in srgb, var(--color-neutral-0) 30%, transparent);
+  --color-line: color-mix(in srgb, var(--color-neutral-0) 20%, transparent);
+}
+@media (prefers-contrast: more) {
+  :root:not([data-contrast="normal"]) {
+    --color-foreground: var(--color-neutral-1000);
+    --color-muted-fg: var(--color-neutral-700);
+    --color-border: color-mix(in srgb, var(--color-neutral-1000) 35%, transparent);
+    --color-line: color-mix(in srgb, var(--color-neutral-1000) 24%, transparent);
+  }
+  :root[data-theme="dark"]:not([data-contrast="normal"]) {
+    --color-foreground: var(--color-neutral-0);
+    --color-muted-fg: var(--color-neutral-300);
+    --color-border: color-mix(in srgb, var(--color-neutral-0) 30%, transparent);
+    --color-line: color-mix(in srgb, var(--color-neutral-0) 20%, transparent);
+  }
+}
+
+/* ---------- Dark theme ----------
+   A pure repoint of the semantic layer — primitives never move. Opt-in via
+   data-theme="dark" on the root: set it server-side, or seed it from the OS in
+   a small inline script (the /spalvos page does the latter). One block, no
+   prefers-color-scheme duplicate — the toggle owns the choice. Dark surfaces
+   bottom out at neutral-1000 (frame = the floor), so nothing undercuts the ink;
+   ink flips to the spine's light end; overlays flip to light ink; the -strong
+   accent-text weights lighten 700 → 400. */
+:root[data-theme="dark"] {
+  --color-paper-raised: oklch(0.24 0.001 90);
+  --color-paper-base: oklch(0.205 0.001 90);
+  --color-paper-wash: oklch(0.19 0.001 90);
+  --color-paper-sunken: oklch(0.175 0.001 90);
+  --color-paper-deep: oklch(0.16 0.001 90);
+  --color-paper-frame: var(--color-neutral-1000); /* = the floor */
+
+  --color-foreground: var(--color-neutral-100);
+  --color-muted-fg: var(--color-neutral-400);
+
+  --color-muted: color-mix(in srgb, var(--color-neutral-0) 8%, transparent);
+  --color-border: color-mix(in srgb, var(--color-neutral-0) 14%, transparent);
+  --color-line: color-mix(in srgb, var(--color-neutral-0) 9%, transparent);
+  --color-hover: color-mix(in srgb, var(--color-neutral-0) 6%, transparent);
+  --color-active: color-mix(in srgb, var(--color-neutral-0) 10%, transparent);
+
+  --color-contrast: var(--color-neutral-0);
+  --color-contrast-fg: var(--color-neutral-1000);
+
+  --color-primary-strong: var(--color-blue-400);
+  --color-success-strong: var(--color-emerald-400);
+  --color-warning-strong: var(--color-amber-400);
+  --color-critical-strong: var(--color-rose-400);
+}
+
+/*
+ * TRANSPORT RECIPE — a terminal / editor theme from the same primitives.
+ * No values, just references — proof the core carries beyond the web:
+ *
+ *   background        neutral-1000        foreground     neutral-100
+ *   ansi black        neutral-1000        bright black   neutral-700
+ *   ansi white        neutral-300         bright white   neutral-0
+ *   ansi red          rose-500            bright red     rose-400
+ *   ansi green        emerald-500         bright green   emerald-400
+ *   ansi yellow       amber-500           bright yellow  amber-400
+ *   ansi blue         blue-500            bright blue    blue-400
+ *   ansi magenta      magenta-500         bright magenta magenta-400
+ *   ansi cyan         cyan-500            bright cyan    cyan-400
+ *
+ * Most ANSI colors clear AA on the neutral-1000 background; the normal blue
+ * (500) is the weak one (~3.5:1 — the classic blue-on-black), so reach for
+ * bright blue (400) when blue text must read. Bright (400) variants sit ~5–10:1.
+ */
