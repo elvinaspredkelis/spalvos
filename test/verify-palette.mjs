@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /*
- * Verify Spalvos — reads ../spalvos.css and asserts the invariants
+ * Verify Spalvos — reads ../tailwind/spalvos.css and asserts the invariants
  * the file only *claims* in comments:
  *   1. Every oklch() literal is inside the sRGB gamut.
  *   2. The key semantic contrasts clear their documented WCAG targets.
@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const css = readFileSync(
-  join(dirname(fileURLToPath(import.meta.url)), "../spalvos.css"),
+  join(dirname(fileURLToPath(import.meta.url)), "../tailwind/spalvos.css"),
   "utf8",
 );
 

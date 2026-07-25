@@ -1,10 +1,10 @@
 # Spalvos for ghostty
 
-Ghostty port of the spalvos color system (`../spalvos.css`), converted from
+Ghostty port of the spalvos color system (`../tailwind/spalvos.css`), converted from
 OKLCH primitives to sRGB hex.
 
 - `spalvos-dark` — based on the "TRANSPORT RECIPE" at the foot of
-  `spalvos.css`, restructured after Catppuccin Macchiato's ghostty theme:
+  `../tailwind/spalvos.css`, restructured after Catppuccin Macchiato's ghostty theme:
   lifted `paper-dark-base` background, black slot = visible surface tone,
   chromatic brights == normals (pastel 400 steps), white ladder below the
   foreground, neutral selection.
@@ -43,7 +43,7 @@ themes with `ghostty +list-themes`.
 
 ## Regenerating
 
-Values were produced by converting the OKLCH primitives in `spalvos.css`
+Values were produced by converting the OKLCH primitives in `../tailwind/spalvos.css`
 to sRGB (Ottosson OKLab matrix + sRGB gamma, gamut-clamped). If the
 primitives change, reconvert and update both files — don't hand-tweak
 hexes, so the port stays faithful to the source of truth.

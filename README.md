@@ -20,18 +20,18 @@ a surface can never sink below the ink.
 
 | Port | Path | Notes |
 |------|------|-------|
-| **Tailwind / CSS** | `spalvos.css` | The source of truth — primitives + themed tokens as `@theme` custom properties. `namespaced-spalvos.css` and `overridden-spalvos.css` are packaging variants. |
+| **Tailwind / CSS** | `tailwind/spalvos.css` | The source of truth — primitives + themed tokens as `@theme` custom properties. `tailwind/namespaced-spalvos.css` and `tailwind/overridden-spalvos.css` are packaging variants. |
 | **Zed** | `zed/spalvos.json` | Light + dark editor themes, full syntax map. |
 | **Ghostty** | `ghostty/` | `spalvos-dark` / `spalvos-light` terminal themes (OKLCH → sRGB). |
 | **Omarchy** | `omarchy/` | `spalvos-dark` / `spalvos-light` desktop themes (`colors.toml` + Neovim + backgrounds). |
 
-Everything downstream derives from the OKLCH primitives in `spalvos.css`. Don't
+Everything downstream derives from the OKLCH primitives in `tailwind/spalvos.css`. Don't
 hand-tweak hexes in a port — change the primitives, reconvert, copy the values
 back.
 
 ## Verify
 
-`test/verify-palette.mjs` reads `spalvos.css` and asserts what the file only
+`test/verify-palette.mjs` reads `tailwind/spalvos.css` and asserts what the file only
 *claims* in comments: every `oklch()` literal is inside the sRGB gamut, and the
 key semantic contrasts clear their documented WCAG targets.
 
