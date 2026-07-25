@@ -1,0 +1,27 @@
+# Spalvos Dark — Omarchy theme
+# Palette lifted verbatim from ../../ghostty/spalvos-dark (the terminal
+# port of the spalvos color system). colors0..15 = the ANSI palette;
+# accent = the cyan signature (spalvos "info/focus" tone).
+accent = "#42cbd2"
+cursor = "#ecebe9"
+foreground = "#ecebe9"
+background = "#171717"
+selection_foreground = "#ecebe9"
+selection_background = "#343331"
+
+color0 = "#343331"
+color1 = "#eb5d6d"
+color2 = "#5ec990"
+color3 = "#f99b56"
+color4 = "#5b7ef0"
+color5 = "#de54b3"
+color6 = "#42cbd2"
+color7 = "#b5b4b1"
+color8 = "#41403d"
+color9 = "#eb5d6d"
+color10 = "#5ec990"
+color11 = "#f99b56"
+color12 = "#5b7ef0"
+color13 = "#de54b3"
+color14 = "#42cbd2"
+color15 = "#d5d4d2"

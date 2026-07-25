@@ -1,0 +1,27 @@
+# Spalvos Light — Omarchy theme
+# Palette lifted verbatim from ../../ghostty/spalvos-light. colors0..15 =
+# the ANSI palette; accent = the deep teal (spalvos "info/focus" tone,
+# zed's border.focused). cursor = the Pro-Colors cyan caret.
+accent = "#087075"
+cursor = "#11bbc2"
+foreground = "#343331"
+background = "#fbfbfa"
+selection_foreground = "#0b0a09"
+selection_background = "#cbf2f4"
+
+color0 = "#41403d"
+color1 = "#b41b3c"
+color2 = "#13955e"
+color3 = "#954d0a"
+color4 = "#087075"
+color5 = "#a70881"
+color6 = "#0d959b"
+color7 = "#f2f2f1"
+color8 = "#73716e"
+color9 = "#de1c4a"
+color10 = "#13955e"
+color11 = "#c4660d"
+color12 = "#0d959b"
+color13 = "#cd059e"
+color14 = "#11bbc2"
+color15 = "#ffffff"
