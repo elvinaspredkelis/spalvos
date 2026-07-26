@@ -13,6 +13,17 @@ build at it (or copy it in and import it):
 @import "./overridden-spalvos.css";
 ```
 
+## Playground
+
+`playground.html` is a self-contained interactive demo (in-browser Tailwind v4
+compiler + the overridden variant) — every class is a spalvos token, with
+theme / contrast / code-format toggles and click-to-copy. Serve the repo and
+open it:
+
+```sh
+python3 -m http.server   # then open http://localhost:8000/tailwind/playground.html
+```
+
 ## Namespaced — add spalvos alongside Tailwind's defaults
 
 `namespaced-spalvos.css` prefixes every token with `spalvos-`, so the palette

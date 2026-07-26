@@ -10,7 +10,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { buildNamespaced, buildOverridden } from "../scripts/gen-tailwind.mjs";
+import { buildNamespaced, buildOverridden, buildPlayground } from "../scripts/gen-tailwind.mjs";
 
 const dir = dirname(fileURLToPath(import.meta.url));
 const css = readFileSync(join(dir, "../spalvos.css"), "utf8");
@@ -124,9 +124,11 @@ if (!portForeign) console.log(`  ✓ ports faithful — every hex renders a cano
 
 // 4. Variant sync — the tailwind/ packaging files must equal what the generator
 //    would emit from the canon (no hand-maintained duplicate of the primitives).
+const template = readFileSync(join(dir, "../scripts/playground.template.html"), "utf8");
 for (const [rel, expected] of [
   ["tailwind/namespaced-spalvos.css", buildNamespaced(css)],
   ["tailwind/overridden-spalvos.css", buildOverridden(css)],
+  ["tailwind/playground.html", buildPlayground(css, template)],
 ]) {
   if (readFileSync(join(dir, "..", rel), "utf8") !== expected)
     fail(`${rel} out of sync — run: bun scripts/gen-tailwind.mjs`);

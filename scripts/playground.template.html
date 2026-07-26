@@ -1,0 +1,256 @@
+<!doctype html>
+<!-- GENERATED from ../spalvos.css by scripts/gen-tailwind.mjs. Do not edit; edit scripts/playground.template.html and regenerate. -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spalvos — Tailwind playground</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<!-- The spalvos "overridden" Tailwind variant, inlined: spalvos IS the palette,
+     so `bg-blue-500`, `text-foreground`, `bg-paper-raised` etc. are all spalvos. -->
+<style type="text/tailwindcss">/*__SPALVOS_CSS__*/</style>
+<style>
+  body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+</style>
+</head>
+<body class="bg-background text-foreground">
+  <main class="mx-auto max-w-3xl px-6 py-12">
+    <h1 class="text-3xl">Spalvos</h1>
+    <p class="mt-2 text-neutral-500">Tailwind v4 playground — every class below is a spalvos token.</p>
+
+    <p class="mt-8 text-muted-fg text-balance">
+      A transportable color system. Click any swatch to copy its code. Toggle
+      the theme and contrast — the semantic tokens repoint, no class changes.
+    </p>
+
+    <!-- Toggles -->
+    <div class="mt-6 flex flex-wrap items-center gap-8">
+      <div class="inline-flex text-xs" data-toggle="theme">
+        <button type="button" class="px-2.5 py-1 uppercase" data-value="light">light</button>
+        <button type="button" class="px-2.5 py-1 uppercase" data-value="dark">dark</button>
+      </div>
+      <div class="inline-flex text-xs" data-toggle="contrast">
+        <button type="button" class="px-2.5 py-1 uppercase" data-value="normal">normal</button>
+        <button type="button" class="px-2.5 py-1 uppercase" data-value="high">contrast</button>
+      </div>
+      <div class="inline-flex text-xs" data-toggle="format">
+        <button type="button" class="px-2.5 py-1 uppercase" data-value="oklch">oklch</button>
+        <button type="button" class="px-2.5 py-1 uppercase" data-value="hex">hex</button>
+        <button type="button" class="px-2.5 py-1 uppercase" data-value="rgb">rgb</button>
+      </div>
+    </div>
+
+    <!-- Palette -->
+    <section class="mt-16">
+      <h2 class="text-xl">Palette</h2>
+      <p class="mt-2 text-sm text-muted-fg text-balance">
+        Six accent hues plus a warm neutral ink, each shown at its 500 anchor
+        (the ink at its 1000 floor).
+      </p>
+      <div id="palette" class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-8"></div>
+    </section>
+
+    <!-- Surface -->
+    <section class="mt-12">
+      <h2 class="text-xl">Surface</h2>
+      <p class="mt-1 text-sm text-muted-fg text-balance">
+        Six shades of paper, from the white of a card down to the frame the app
+        sits in — each a touch deeper than the last.
+      </p>
+      <div id="surface" class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-8"></div>
+    </section>
+
+    <!-- Steps -->
+    <section class="mt-12">
+      <h2 class="text-xl">Steps</h2>
+      <p class="mt-1 text-sm text-muted-fg text-balance">
+        Each family runs a 13-step ramp built in OKLCH — hue holds, chroma crests
+        at 500, every step inside the sRGB gamut.
+      </p>
+      <div id="steps" class="mt-2"></div>
+    </section>
+
+    <!-- Example UI -->
+    <section class="mt-12">
+      <h2 class="text-xl">Example UI</h2>
+      <p class="mt-1 text-sm text-muted-fg text-balance">
+        The semantic tokens assembled into one card — the trend line rides the
+        brand blue; the dots give the rest of the palette a job.
+      </p>
+      <div class="mt-8 max-w-sm rounded-xl border border-border bg-paper-raised p-6">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-medium">Revenue</h3>
+          <button type="button" class="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-muted-fg transition-colors hover:text-foreground">
+            Last 7 days
+            <svg viewBox="0 0 12 12" class="size-3" fill="none"><path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </button>
+        </div>
+        <div class="mt-5 flex items-baseline gap-2">
+          <span class="text-3xl tracking-tight tabular-nums">$48,120</span>
+          <span class="inline-flex items-center gap-0.5 text-xs font-medium text-success-strong">
+            <svg viewBox="0 0 12 12" class="size-3" fill="none"><path d="M6 9.5V2.5M6 2.5 3 5.5M6 2.5 9 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            12.4%
+          </span>
+        </div>
+        <p class="mt-1 text-xs text-muted-fg">vs. $42,800 last week</p>
+        <svg viewBox="0 0 320 72" class="mt-5 w-full overflow-visible" fill="none" aria-hidden="true">
+          <path d="M0 56 27 52 53 58 80 46 107 50 133 40 160 44 187 34 213 30 240 24 267 28 293 18 316 12 316 72 0 72Z" class="fill-primary/8" />
+          <path d="M0 56 27 52 53 58 80 46 107 50 133 40 160 44 187 34 213 30 240 24 267 28 293 18 316 12" class="stroke-primary" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="316" cy="12" r="6" class="fill-primary/15" />
+          <circle cx="316" cy="12" r="3" class="fill-primary" />
+        </svg>
+        <div class="mt-5 border-t border-line"></div>
+        <div id="breakdown" class="mt-4 flex flex-col gap-2.5"></div>
+      </div>
+    </section>
+
+    <p class="mt-10 text-muted-fg">
+      Learn more at
+      <a href="https://github.com/elvinaspredkelis/spalvos" target="_blank"
+         class="text-foreground underline underline-offset-2 decoration-dotted decoration-foreground/50 hover:opacity-70 transition-opacity">Spalvos repository</a>.
+    </p>
+  </main>
+
+<script>
+  const brandSteps = ["50","100","150","200","300","400","500","600","700","800","850","900","950"];
+  const neutralSteps = ["0","50","100","200","300","400","500","600","700","800","900","950","1000"];
+  const families = [
+    { name: "blue", steps: brandSteps },
+    { name: "cyan", steps: brandSteps },
+    { name: "emerald", steps: brandSteps },
+    { name: "amber", label: "orange", steps: brandSteps },
+    { name: "rose", label: "raspberry", steps: brandSteps },
+    { name: "magenta", label: "fuchsia", steps: brandSteps },
+    { name: "neutral", label: "ink", steps: neutralSteps, swatch: "1000" },
+  ];
+  const papers = ["raised", "base", "wash", "sunken", "deep", "frame"];
+  const breakdown = [
+    { label: "Subscriptions", value: "$31,200", color: "blue-500" },
+    { label: "Usage", value: "$12,400", color: "emerald-500" },
+    { label: "Services", value: "$4,520", color: "amber-500" },
+  ];
+
+  const token = (n) => `var(--color-${n})`;
+  const swatchName = (f) => `${f.name}-${f.swatch ?? "500"}`;
+  const state = { format: "oklch", theme: "light", contrast: "normal" };
+  let codes = {}, copied = null, copyTimer;
+
+  // RGB/HEX from pixels painted to a 1×1 canvas; OKLCH straight from the var.
+  // Re-run on theme change — paper-* tokens resolve differently per theme.
+  function refreshCodes() {
+    const probe = document.createElement("span");
+    probe.style.display = "none";
+    document.body.appendChild(probe);
+    const resolveVar = (n) => { probe.style.color = token(n); return getComputedStyle(probe).color; };
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 1;
+    const ctx = canvas.getContext("2d");
+    const paint = (c) => { ctx.clearRect(0,0,1,1); ctx.fillStyle = c; ctx.fillRect(0,0,1,1); const [r,g,b] = ctx.getImageData(0,0,1,1).data; return [r,g,b]; };
+    const hex = (rgb) => "#" + rgb.map((v) => v.toString(16).padStart(2,"0")).join("").toUpperCase();
+    const root = getComputedStyle(document.documentElement);
+    const out = {};
+    const record = (n) => { const rgb = paint(resolveVar(n)); out[n] = { hex: hex(rgb), rgb: `rgb(${rgb[0]} ${rgb[1]} ${rgb[2]})`, oklch: root.getPropertyValue(`--color-${n}`).trim() }; };
+    for (const f of families) for (const s of f.steps) record(`${f.name}-${s}`);
+    for (const p of papers) record(`paper-${p}`);
+    codes = out;
+    probe.remove();
+  }
+
+  async function copy(name) {
+    const code = codes[name]?.[state.format];
+    if (!code) return;
+    try {
+      await navigator.clipboard.writeText(code);
+      copied = name;
+      paintCodes();
+      clearTimeout(copyTimer);
+      copyTimer = setTimeout(() => { copied = null; paintCodes(); }, 1000);
+    } catch { /* clipboard blocked */ }
+  }
+
+  // A clickable swatch: color block, label, code line (or step number).
+  function swatch({ name, label, kind, step }) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "block text-left w-full";
+    btn.title = `Copy ${state.format.toUpperCase()}`;
+    btn.addEventListener("click", () => copy(name));
+    const block = document.createElement("div");
+    block.className = "aspect-square w-full";
+    block.style.background = token(name);
+    btn.appendChild(block);
+    if (label != null) {
+      const l = document.createElement("div");
+      l.className = "mt-2 text-xs capitalize";
+      l.textContent = label;
+      btn.appendChild(l);
+    }
+    const code = document.createElement("div");
+    code.dataset.code = name;
+    code.dataset.kind = kind;
+    if (step != null) code.dataset.step = step;
+    code.className = "truncate tabular-nums text-[0.6rem]" + (kind === "swatch" ? " mt-0.5" : "");
+    btn.appendChild(code);
+    return btn;
+  }
+
+  function paintCodes() {
+    document.querySelectorAll("[data-code]").forEach((el) => {
+      const name = el.dataset.code, kind = el.dataset.kind;
+      const base = "truncate tabular-nums text-[0.6rem]" + (kind === "swatch" ? " mt-0.5" : "");
+      if (copied === name) { el.textContent = "copied"; el.className = base + " text-success-strong"; return; }
+      if (kind === "step") { el.textContent = el.dataset.step; el.className = base + " text-muted-fg"; }
+      else { el.textContent = codes[name]?.[state.format] ?? ""; el.className = base + " text-neutral-500"; }
+    });
+  }
+
+  function build() {
+    const pal = document.getElementById("palette");
+    for (const f of families) pal.appendChild(swatch({ name: swatchName(f), label: f.label ?? f.name, kind: "swatch" }));
+    const surf = document.getElementById("surface");
+    for (const p of papers) surf.appendChild(swatch({ name: `paper-${p}`, label: p, kind: "swatch" }));
+    const steps = document.getElementById("steps");
+    for (const f of families) {
+      const row = document.createElement("div");
+      row.className = "mt-8 grid grid-cols-7 md:grid-cols-[repeat(13,minmax(0,1fr))] gap-y-2 gap-x-2";
+      for (const s of f.steps) row.appendChild(swatch({ name: `${f.name}-${s}`, kind: "step", step: s }));
+      steps.appendChild(row);
+    }
+    const bd = document.getElementById("breakdown");
+    for (const row of breakdown) {
+      const r = document.createElement("div");
+      r.className = "flex items-center justify-between text-sm";
+      r.innerHTML = `<span class="flex items-center gap-2 text-muted-fg"><span class="size-2 rounded-full" style="background:${token(row.color)}"></span>${row.label}</span><span class="font-medium tabular-nums">${row.value}</span>`;
+      bd.appendChild(r);
+    }
+  }
+
+  function updateToggleUI() {
+    document.querySelectorAll("[data-toggle]").forEach((group) => {
+      const active = state[group.dataset.toggle];
+      group.querySelectorAll("button").forEach((b) => {
+        b.className = "px-2.5 py-1 uppercase " + (b.dataset.value === active
+          ? "bg-contrast text-contrast-fg"
+          : "bg-paper-sunken text-muted-fg hover:text-foreground");
+      });
+    });
+  }
+
+  function apply(group, value) {
+    state[group] = value;
+    if (group === "theme") { document.documentElement.dataset.theme = value; refreshCodes(); }
+    if (group === "contrast") document.documentElement.dataset.contrast = value;
+    paintCodes();
+    updateToggleUI();
+  }
+
+  document.querySelectorAll("[data-toggle]").forEach((group) =>
+    group.querySelectorAll("button").forEach((b) =>
+      b.addEventListener("click", () => apply(group.dataset.toggle, b.dataset.value))));
+
+  build();
+  apply("theme", window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  apply("contrast", window.matchMedia("(prefers-contrast: more)").matches ? "high" : "normal");
+</script>
+</body>
+</html>
