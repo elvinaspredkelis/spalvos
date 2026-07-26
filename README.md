@@ -38,3 +38,7 @@ key semantic contrasts clear their documented WCAG targets.
 ```sh
 bun test/verify-palette.mjs
 ```
+
+## License
+
+MIT — see [`LICENSE`](LICENSE).
