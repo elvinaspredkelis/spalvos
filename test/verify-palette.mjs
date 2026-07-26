@@ -1,17 +1,16 @@
 #!/usr/bin/env bun
 /*
- * Verify Spalvos — reads ../tailwind/spalvos.css and asserts the invariants
- * the file only *claims* in comments:
+ * Verify Spalvos — reads ../spalvos.css and asserts the palette invariants:
  *   1. Every oklch() literal is inside the sRGB gamut.
- *   2. The key semantic contrasts clear their documented WCAG targets.
- * Run: `bun scripts/verify-palette.mjs` (exit 1 on any failure).
+ *   2. The key semantic contrasts clear their WCAG targets.
+ * Run: `bun test/verify-palette.mjs` (exit 1 on any failure).
  */
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const css = readFileSync(
-  join(dirname(fileURLToPath(import.meta.url)), "../tailwind/spalvos.css"),
+  join(dirname(fileURLToPath(import.meta.url)), "../spalvos.css"),
   "utf8",
 );
 

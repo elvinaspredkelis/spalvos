@@ -62,5 +62,5 @@ experience (skipped here — the theme works without them):
 ## Regenerating
 
 Don't hand-tweak the hexes. The palette derives from the OKLCH primitives in
-`../../tailwind/spalvos.css`; if those change, reconvert the ghostty ports and copy the
+`../../spalvos.css`; if those change, reconvert the ghostty ports and copy the
 values back into both `colors.toml` files (and the `neovim.lua` palette table).
