@@ -4,7 +4,15 @@ A transportable color system. Warm ink on warm paper (Flexoki / Helply
 lineage), dialed toward neutral — quiet, not cold. One set of primitives drives
 a light web UI, a dark web UI, a terminal, and an editor.
 
-**Homepage:** [predkelis.com/spalvos](https://predkelis.com/spalvos)
+Authored in OKLCH — gamut-safe and perceptually even. The same core carries the
+web, a terminal, and an editor with no per-port hand-tweaking.
+
+Tested at [Primevise](https://primevise.com), [Rinkta](https://rinkta.com), and [Mintis Dynamics](https://mintisdynamics.com).
+
+<a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-5ec990"></a>
+<a href="https://github.com/elvinaspredkelis/spalvos/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/elvinaspredkelis/spalvos?color=5b7ef0"></a>
+
+---
 
 ## The core
 
