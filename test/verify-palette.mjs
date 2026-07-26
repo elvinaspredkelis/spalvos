@@ -3,16 +3,17 @@
  * Verify Spalvos — reads ../spalvos.css and asserts the palette invariants:
  *   1. Every oklch() literal is inside the sRGB gamut.
  *   2. The key semantic contrasts clear their WCAG targets.
+ *   3. Every hex in a port renders a canon primitive (no hand-tweaked colors).
+ *   4. The tailwind/ packaging variants are in sync with the canon.
  * Run: `bun test/verify-palette.mjs` (exit 1 on any failure).
  */
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { buildNamespaced, buildOverridden } from "../scripts/gen-tailwind.mjs";
 
-const css = readFileSync(
-  join(dirname(fileURLToPath(import.meta.url)), "../spalvos.css"),
-  "utf8",
-);
+const dir = dirname(fileURLToPath(import.meta.url));
+const css = readFileSync(join(dir, "../spalvos.css"), "utf8");
 
 // --- OKLCH → linear sRGB → helpers ---------------------------------------
 const oklchToLinear = (L, C, H) => {
@@ -88,6 +89,49 @@ for (const [label, [fg, bg], target] of checks) {
 if (!/--color-paper-frame:\s*var\(--color-neutral-1000\)/.test(darkBlock))
   fail("dark paper-frame must be var(--color-neutral-1000) (the shared floor)");
 else console.log("  ✓ dark frame == neutral-1000 floor");
+
+// 3. Port fidelity — every hex in a port is a faithful sRGB rendering of a canon
+//    oklch() literal (Δ ≤ 2/255 per channel). Catches hand-tweaked port colors.
+const toHex = (L, C, H) =>
+  "#" + oklchToLinear(L, C, H).map((c) => Math.round(cl(toSrgb(cl(c))) * 255).toString(16).padStart(2, "0")).join("");
+const canonHex = new Set();
+for (const m of css.matchAll(/oklch\(([\d.]+)\s+([\d.]+)\s+([\d.]+)\)/g))
+  canonHex.add(toHex(+m[1], +m[2], +m[3]));
+const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const isCanon = (h) => {
+  const t = rgb(h);
+  for (const k of canonHex) if (rgb(k).every((v, i) => Math.abs(v - t[i]) <= 2)) return true;
+  return false;
+};
+const ports = [
+  { file: "../ghostty/spalvos-dark", strip: true },
+  { file: "../ghostty/spalvos-light", strip: true },
+  { file: "../omarchy/spalvos-dark/colors.toml", strip: true },
+  { file: "../omarchy/spalvos-light/colors.toml", strip: true },
+  // zed carries a few intentional derived tones (dim ANSI + a selection tint)
+  // that aren't raw primitives; allowlist them so any OTHER foreign hex fails.
+  { file: "../zed/spalvos.json", strip: false, allow: new Set(["#0b5b38", "#7a4008", "#065e61", "#003c3f"]) },
+];
+let portForeign = 0;
+for (const { file, strip, allow } of ports) {
+  let text = readFileSync(join(dir, file), "utf8");
+  if (strip) text = text.split("\n").filter((l) => !/^\s*#/.test(l)).join("\n");
+  const hexes = [...new Set([...text.matchAll(/#[0-9a-fA-F]{6}\b/g)].map((m) => m[0].toLowerCase()))];
+  const bad = hexes.filter((h) => !isCanon(h) && !allow?.has(h));
+  if (bad.length) { fail(`${file}: non-canon hex(es): ${bad.join(" ")}`); portForeign += bad.length; }
+}
+if (!portForeign) console.log(`  ✓ ports faithful — every hex renders a canon primitive`);
+
+// 4. Variant sync — the tailwind/ packaging files must equal what the generator
+//    would emit from the canon (no hand-maintained duplicate of the primitives).
+for (const [rel, expected] of [
+  ["tailwind/namespaced-spalvos.css", buildNamespaced(css)],
+  ["tailwind/overridden-spalvos.css", buildOverridden(css)],
+]) {
+  if (readFileSync(join(dir, "..", rel), "utf8") !== expected)
+    fail(`${rel} out of sync — run: bun scripts/gen-tailwind.mjs`);
+  else console.log(`  ✓ ${rel} in sync with canon`);
+}
 
 console.log(failures ? `\nFAIL — ${failures} problem(s)` : "\nPASS");
 process.exit(failures ? 1 : 0);

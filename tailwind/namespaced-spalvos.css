@@ -1,52 +1,7 @@
+/* namespaced-spalvos.css — GENERATED from ../spalvos.css by scripts/gen-tailwind.mjs. Do not edit; regenerate. */
 @import 'tailwindcss';
 
-/*
- * Spalvos — a transportable color system
- *
- * Warm ink on warm paper (Flexoki / Helply lineage), dialed toward neutral —
- * quiet, not cold. Built to travel: the same primitives drive a light web UI,
- * a dark web UI, and (with the recipe below) a terminal or editor theme.
- *
- * LAYERS
- *   • Primitives (the portable core) — six accent ramps + one neutral spine,
- *     authored in OKLCH, gamut-safe, perceptually even. Theme-independent;
- *     copy this block anywhere.
- *   • Themed tokens — surfaces (paper-*) and the semantic tokens
- *     (background/foreground/border/…) reference the primitives, and a few
- *     carry a light value and a dark value. A "theme" is just which value wins:
- *     light is the default, [data-theme="dark"] repoints, a terminal repoints
- *     again (recipe at the foot of the file).
- *
- * THE INVARIANT that makes dark safe: at the dark end, the darkest surface
- * (dark `frame`) and the darkest ink are the SAME primitive — neutral-1000, the
- * true-black floor — so a surface can never sink below the ink (the bug that
- * plagues naive dark modes). At the light end, `raised` is pure white, the
- * ceiling. Nothing goes beyond those two extremes.
- *
- * ACCENT RAMPS — blue, cyan, emerald, amber, rose, magenta: six hues spread
- * around the wheel — the six chromatic ANSI colors (black + white come from the
- * spine; 500/400 give the normal/bright pair, for ANSI-16). Constant hue per
- * family; L and C interpolate between the 50 / 500 / 950 anchors in proportion
- * to the step label (150 and 850 are true half-steps); chroma peaks at 500.
- * Each accent runs two working weights: 500 for FILLS (with a white or dark ink
- * twin), the darker 700 for TEXT on light — which lightens to 400 in dark mode,
- * since a 700 can't read on a dark surface.
- *
- * NEUTRAL SPINE — warm hue 90, chroma tiny; the single achromatic axis for
- * text, borders, muted fills, and the two shared extremes. 950 = light-mode
- * text; 1000 = the true-black floor.
- *
- * Never signal warning vs success by hue alone — pair with an icon or label
- * (the red-green axis is lost to deutan/protan vision).
- */
-
 @theme static {
-  /* ============================================================= *
-   *  PRIMITIVES — the portable core. Copy this whole block.       *
-   * ============================================================= */
-
-  /* ---------- Accent ramps (six chromatic ANSI hues) ---------- */
-
   --color-spalvos-blue-50: oklch(0.96 0.018 268.04);
   --color-spalvos-blue-100: oklch(0.9122 0.0404 268.04);
   --color-spalvos-blue-150: oklch(0.8644 0.0628 268.04);
@@ -61,7 +16,6 @@
   --color-spalvos-blue-900: oklch(0.2544 0.0786 268.04);
   --color-spalvos-blue-950: oklch(0.22 0.061 268.04);
 
-  /* cyan chroma clamped to the sRGB gamut boundary (cyan tops out low) */
   --color-spalvos-cyan-50: oklch(0.96 0.028 200);
   --color-spalvos-cyan-100: oklch(0.9333 0.0404 200);
   --color-spalvos-cyan-150: oklch(0.9067 0.0529 200);
@@ -90,7 +44,6 @@
   --color-spalvos-emerald-900: oklch(0.2733 0.0569 158);
   --color-spalvos-emerald-950: oklch(0.22 0.044 158);
 
-  /* amber 100/150 chroma clamped to the sRGB gamut boundary */
   --color-spalvos-amber-50: oklch(0.96 0.023 55);
   --color-spalvos-amber-100: oklch(0.9333 0.0377 55);
   --color-spalvos-amber-150: oklch(0.9067 0.0547 55);
@@ -119,8 +72,6 @@
   --color-spalvos-rose-900: oklch(0.26 0.0787 16.44);
   --color-spalvos-rose-950: oklch(0.22 0.061 16.44);
 
-  /* Fuchsia — pinker than a flat magenta (hue 342), 500 tuned so white text
-     clears AA (4.98:1). Fills the ANSI magenta slot. */
   --color-spalvos-magenta-50: oklch(0.96 0.022 342);
   --color-spalvos-magenta-100: oklch(0.9167 0.0473 342);
   --color-spalvos-magenta-150: oklch(0.8733 0.0727 342);
@@ -135,8 +86,6 @@
   --color-spalvos-magenta-900: oklch(0.2589 0.0829 342);
   --color-spalvos-magenta-950: oklch(0.22 0.062 342);
 
-  /* ---------- Neutral spine (warm hue 90) ---------- */
-
   --color-spalvos-neutral-0: oklch(0.99 0.0015 90);
   --color-spalvos-neutral-50: oklch(0.97 0.002 90);
   --color-spalvos-neutral-100: oklch(0.94 0.003 90);
@@ -149,29 +98,18 @@
   --color-spalvos-neutral-800: oklch(0.32 0.004 90);
   --color-spalvos-neutral-900: oklch(0.29 0.0035 90);
   --color-spalvos-neutral-950: oklch(0.25 0.0035 90);
-  --color-spalvos-neutral-1000: oklch(0.145 0.003 90); /* true-black floor — the shared ink/surface bottom */
+  --color-spalvos-neutral-1000: oklch(0.145 0.003 90);
 
-  /* ============================================================= *
-   *  SURFACES — light theme (a tight near-white cluster).         *
-   *  raised = pure white = the ceiling; each step a touch deeper. *
-   * ============================================================= */
-
-  --color-spalvos-paper-raised: oklch(1 0 0); /* cards, popovers — the ceiling */
-  --color-spalvos-paper-base: oklch(0.988 0.001 90); /* content canvas / page */
-  --color-spalvos-paper-wash: oklch(0.976 0.001 90); /* subtle inset, zebra rows */
-  --color-spalvos-paper-sunken: oklch(0.96 0.001 90); /* input wells, hover wells */
-  --color-spalvos-paper-deep: oklch(0.945 0.001 90); /* deepest inset / pressed */
-  --color-spalvos-paper-frame: oklch(0.928 0.001 90); /* app chrome — sidebar, toolbar */
-
-  /* ============================================================= *
-   *  SEMANTIC — web light theme. Every token below is a REFERENCE *
-   *  into the primitives above. Retheming = repointing these.     *
-   * ============================================================= */
+  --color-spalvos-paper-raised: oklch(1 0 0);
+  --color-spalvos-paper-base: oklch(0.988 0.001 90);
+  --color-spalvos-paper-wash: oklch(0.976 0.001 90);
+  --color-spalvos-paper-sunken: oklch(0.96 0.001 90);
+  --color-spalvos-paper-deep: oklch(0.945 0.001 90);
+  --color-spalvos-paper-frame: oklch(0.928 0.001 90);
 
   --color-spalvos-background: var(--color-spalvos-paper-base);
   --color-spalvos-foreground: var(--color-spalvos-neutral-950);
 
-  /* Translucent ink — composites over any surface or tinted band */
   --color-spalvos-muted: color-mix(in srgb, var(--color-spalvos-neutral-950) 5%, transparent);
   --color-spalvos-muted-fg: var(--color-spalvos-neutral-600);
   --color-spalvos-border: color-mix(in srgb, var(--color-spalvos-neutral-950) 20%, transparent);
@@ -182,7 +120,6 @@
   --color-spalvos-contrast: var(--color-spalvos-neutral-1000);
   --color-spalvos-contrast-fg: var(--color-spalvos-neutral-0);
 
-  /* Accents: 500 = fill (+ -fg twin), -strong (700) = text on light */
   --color-spalvos-primary: var(--color-spalvos-blue-500);
   --color-spalvos-primary-fg: var(--color-spalvos-neutral-0);
   --color-spalvos-primary-strong: var(--color-spalvos-blue-700);
@@ -200,11 +137,6 @@
   --color-spalvos-critical-strong: var(--color-spalvos-rose-700);
 }
 
-/* ---------- High-contrast mode ----------
-   Deepens ink + hairlines, in BOTH themes. Opt-in via [data-contrast="high"]
-   or the OS prefers-contrast setting. The dark variants are more specific, so
-   they win when dark + high-contrast are both active (a light-ink override on a
-   dark surface would otherwise be unreadable). Accents and surfaces stay put. */
 :root[data-contrast="high"] {
   --color-spalvos-foreground: var(--color-spalvos-neutral-1000);
   --color-spalvos-muted-fg: var(--color-spalvos-neutral-700);
@@ -232,21 +164,13 @@
   }
 }
 
-/* ---------- Dark theme ----------
-   A pure repoint of the semantic layer — primitives never move. Opt-in via
-   data-theme="dark" on the root: set it server-side, or seed it from the OS in
-   a small inline script (the /spalvos page does the latter). One block, no
-   prefers-color-scheme duplicate — the toggle owns the choice. Dark surfaces
-   bottom out at neutral-1000 (frame = the floor), so nothing undercuts the ink;
-   ink flips to the spine's light end; overlays flip to light ink; the -strong
-   accent-text weights lighten 700 → 400. */
 :root[data-theme="dark"] {
   --color-spalvos-paper-raised: oklch(0.24 0.001 90);
   --color-spalvos-paper-base: oklch(0.205 0.001 90);
   --color-spalvos-paper-wash: oklch(0.19 0.001 90);
   --color-spalvos-paper-sunken: oklch(0.175 0.001 90);
   --color-spalvos-paper-deep: oklch(0.16 0.001 90);
-  --color-spalvos-paper-frame: var(--color-spalvos-neutral-1000); /* = the floor */
+  --color-spalvos-paper-frame: var(--color-spalvos-neutral-1000);
 
   --color-spalvos-foreground: var(--color-spalvos-neutral-100);
   --color-spalvos-muted-fg: var(--color-spalvos-neutral-400);
@@ -265,22 +189,3 @@
   --color-spalvos-warning-strong: var(--color-spalvos-amber-400);
   --color-spalvos-critical-strong: var(--color-spalvos-rose-400);
 }
-
-/*
- * TRANSPORT RECIPE — a terminal / editor theme from the same primitives.
- * No values, just references — proof the core carries beyond the web:
- *
- *   background        neutral-1000        foreground     neutral-100
- *   ansi black        neutral-1000        bright black   neutral-700
- *   ansi white        neutral-300         bright white   neutral-0
- *   ansi red          rose-500            bright red     rose-400
- *   ansi green        emerald-500         bright green   emerald-400
- *   ansi yellow       amber-500           bright yellow  amber-400
- *   ansi blue         blue-500            bright blue    blue-400
- *   ansi magenta      magenta-500         bright magenta magenta-400
- *   ansi cyan         cyan-500            bright cyan    cyan-400
- *
- * Most ANSI colors clear AA on the neutral-1000 background; the normal blue
- * (500) is the weak one (~3.5:1 — the classic blue-on-black), so reach for
- * bright blue (400) when blue text must read. Bright (400) variants sit ~5–10:1.
- */
