@@ -1,0 +1,453 @@
+-- Spalvos for Neovim — light + dark, from the spalvos color system.
+--
+-- Structured after ../../zed/spalvos.json: ONE file carries both variants,
+-- each variant is the same key set with a different hex behind every key, and
+-- the token -> colour assignments are lifted verbatim from the Zed theme so
+-- the editor, the terminal (../../ghostty) and the desktop (../../omarchy)
+-- all agree. Everything derives from the OKLCH primitives in
+-- ../../tailwind/spalvos.css — don't hand-tweak hexes here; change the
+-- primitives, reconvert, copy the values back.
+--
+-- Usage:
+--   :colorscheme spalvos-light        (see ../colors/)
+--   :colorscheme spalvos-dark
+--   require("spalvos").load("dark")
+--
+-- The palettes are named by ROLE, not by hue, because the hue behind a role
+-- flips between variants: light runs blue duty on the cyan ramp (the spalvos
+-- blue ramp is violet/hot at every step), dark uses the real blue. Naming the
+-- slots `accent` / `property` / `fn` instead of `blue` / `cyan` is what lets a
+-- single highlight map serve both — same reason Zed's two `style` blocks share
+-- one key set.
+
+local M = {}
+
+--- Options. Set via `require("spalvos").setup{...}` before `:colorscheme`.
+---
+--- Transparency is an option of the colorscheme, resolved when the highlight
+--- map is built — never a post-hoc pass that strips `bg` off finished groups.
+--- A stripping pass cannot tell the canvas apart from an elevated surface, so
+--- it flattens floats, popups and panels onto the terminal background and the
+--- theme loses its depth. Catppuccin and Flexoki both resolve it inline; so do
+--- we. Floats are a SEPARATE opt-in for the same reason (catppuccin splits
+--- `transparent_background` from `float.transparent`).
+--- `vim.g.spalvos_transparent` / `vim.g.spalvos_float_transparent` are honoured
+--- as defaults when setup() hasn't spoken, so a config that can't call setup()
+--- (an Omarchy theme drop-in, say) can still opt in.
+M.options = {
+  transparent = false, -- canvas, statusline, tabline, folds
+  float = {
+    transparent = false, -- popups/floats; honoured only when winblend == 0
+  },
+}
+
+local configured = false
+
+--- @param opts table|nil
+function M.setup(opts)
+  M.options = vim.tbl_deep_extend("force", M.options, opts or {})
+  configured = true
+end
+
+--- Options actually in force: setup() wins, else the vim.g fallbacks.
+local function resolved()
+  if configured then return M.options end
+  return {
+    transparent = vim.g.spalvos_transparent == true,
+    float = { transparent = vim.g.spalvos_float_transparent == true },
+  }
+end
+
+M.palettes = {
+  -- "Spalvos Light" — paper-base canvas, neutral-800 ink.
+  light = {
+    -- Surfaces
+    bg          = "#fbfbfa", -- editor.background
+    bg_dark     = "#f7f7f6", -- panels, statusline, tab bar, sidebars
+    bg_float    = "#ffffff", -- elevated_surface.background
+    bg_line     = "#f7f7f6", -- editor.active_line.background
+    bg_element  = "#f2f2f1", -- element.background / hint.background
+    border      = "#e7e7e6",
+    border_soft = "#ededec", -- border.variant, indent guides
+    visual      = "#cbf2f4", -- element.selected: cyan selection wash
+    -- Ink
+    fg          = "#343331", -- neutral-800
+    fg_dim      = "#565552", -- syntax.operator, icon
+    muted       = "#73716e", -- text.muted, syntax.punctuation
+    comment     = "#908f8c",
+    gutter      = "#b5b4b1", -- editor.line_number, text.disabled
+    invisible   = "#d5d4d2", -- editor.invisible, active wrap guide
+    -- Syntax accents
+    accent      = "#087075", -- cyan-700: focus, links, builtins, info
+    property    = "#0d959b", -- cyan-600: property, field, attribute
+    number      = "#087075", -- number + string.regex (own slot: dark splits it)
+    fn          = "#3858e8", -- function names — the one true-blue slot
+    keyword     = "#a70881",
+    string      = "#13955e",
+    type        = "#954d0a", -- type, namespace, label
+    tag         = "#b41b3c", -- tag, constructor, enum, variant
+    variable    = "#565552",
+    param       = "#8c182f",
+    var_special = "#de1c4a",
+    str_special = "#c4660d",
+    link        = "#0d959b",
+    -- Status
+    error       = "#b41b3c",
+    warn        = "#954d0a",
+    ok          = "#107147",
+    hint        = "#73716e",
+    error_bg    = "#feeded",
+    warn_bg     = "#ffeee4",
+    ok_bg       = "#e5f7eb",
+    info_bg     = "#ddf8f9",
+    -- Terminal ANSI (../../ghostty/spalvos-light)
+    ansi = {
+      "#41403d", "#b41b3c", "#13955e", "#954d0a",
+      "#087075", "#a70881", "#0d959b", "#f2f2f1",
+      "#73716e", "#de1c4a", "#13955e", "#c4660d",
+      "#0d959b", "#cd059e", "#11bbc2", "#ffffff",
+    },
+  },
+
+  -- "Spalvos Dark" — editor canvas one step above the #171717 desktop.
+  dark = {
+    -- Surfaces
+    bg          = "#1f1f1f",
+    bg_dark     = "#171717",
+    bg_float    = "#2c2b29",
+    bg_line     = "#2c2b29",
+    bg_element  = "#222220",
+    border      = "#343331",
+    border_soft = "#2c2b29",
+    visual      = "#003c3f", -- teal selection wash
+    -- Ink
+    fg          = "#ecebe9",
+    fg_dim      = "#b5b4b1",
+    muted       = "#908f8c",
+    comment     = "#908f8c",
+    gutter      = "#73716e",
+    invisible   = "#41403d",
+    -- Syntax accents
+    accent      = "#42cbd2",
+    property    = "#42cbd2",
+    number      = "#0d959b", -- stays on the deeper cyan so digits ≠ builtins
+    fn          = "#82a1f7",
+    keyword     = "#de54b3",
+    string      = "#5ec990",
+    type        = "#f99b56",
+    tag         = "#de1c4a",
+    variable    = "#d5d4d2",
+    param       = "#f58991",
+    var_special = "#eb5d6d",
+    str_special = "#fdb482",
+    link        = "#7ad8dd",
+    -- Status
+    error       = "#eb5d6d",
+    warn        = "#f99b56",
+    ok          = "#5ec990",
+    hint        = "#908f8c",
+    error_bg    = "#420f16",
+    warn_bg     = "#3f1e04",
+    ok_bg       = "#072f1c",
+    info_bg     = "#003033",
+    -- Terminal ANSI (../../ghostty/spalvos-dark)
+    ansi = {
+      "#343331", "#eb5d6d", "#5ec990", "#f99b56",
+      "#5b7ef0", "#de54b3", "#42cbd2", "#b5b4b1",
+      "#41403d", "#eb5d6d", "#5ec990", "#f99b56",
+      "#5b7ef0", "#de54b3", "#42cbd2", "#d5d4d2",
+    },
+  },
+}
+
+--- Build the highlight map for a palette. Shared by both variants.
+--- @param p table one of M.palettes
+--- @param o table|nil options (defaults to M.options)
+--- @return table<string, table> highlight group -> nvim_set_hl opts
+function M.groups(p, o)
+  o = o or resolved()
+  local NONE = "NONE"
+
+  -- Canvas. Transparent surfaces resolve to NONE here, at definition time.
+  local canvas = o.transparent and NONE or p.bg
+  local bar    = o.transparent and NONE or p.bg_dark
+  local fold   = o.transparent and NONE or p.bg_float
+  -- Popups honour the blend options, exactly as catppuccin gates them: a
+  -- blended popup already composites, so forcing NONE would double up.
+  local float  = (o.float.transparent and vim.o.winblend == 0) and NONE or p.bg_float
+  local pum    = (o.float.transparent and vim.o.pumblend == 0) and NONE or p.bg_float
+  -- Without surfaces behind them, separators need to carry the line
+  -- themselves — catppuccin steps crust -> surface1 for the same reason.
+  local split  = o.transparent and p.gutter or p.border
+
+  return {
+    -- Editor UI
+    Normal       = { fg = p.fg, bg = canvas },
+    NormalNC     = { fg = p.fg, bg = canvas },
+    NormalFloat  = { fg = p.fg, bg = float },
+    FloatBorder  = { fg = p.border, bg = float },
+    FloatTitle   = { fg = p.accent, bg = float, bold = true },
+    ColorColumn  = { bg = p.bg_dark },
+    Cursor       = { fg = p.bg, bg = p.fg },
+    lCursor      = { fg = p.bg, bg = p.fg },
+    CursorLine   = { bg = p.bg_line },
+    CursorColumn = { bg = p.bg_line },
+    -- Gutter never carries its own background — it inherits the canvas, so it
+    -- follows transparency for free. Flexoki pins these to NONE outright.
+    CursorLineNr = { fg = p.fg, bg = NONE, bold = true },
+    LineNr       = { fg = p.gutter, bg = NONE },
+    SignColumn   = { bg = NONE },
+    FoldColumn   = { fg = p.gutter, bg = NONE },
+    EndOfBuffer  = { fg = p.invisible, bg = NONE },
+    Folded       = { fg = p.comment, bg = fold },
+    VertSplit    = { fg = split },
+    WinSeparator = { fg = split },
+    Visual       = { bg = p.visual },
+    VisualNOS    = { bg = p.visual },
+    Search       = { fg = p.bg, bg = p.property },
+    IncSearch    = { fg = p.bg, bg = p.warn },
+    CurSearch    = { fg = p.bg, bg = p.warn },
+    Substitute   = { fg = p.bg, bg = p.error },
+    MatchParen   = { fg = p.accent, bold = true },
+    Pmenu        = { fg = p.fg, bg = pum },
+    PmenuSel     = { fg = p.fg, bg = p.visual },
+    PmenuSbar    = { bg = pum },
+    PmenuThumb   = { bg = p.border },
+    StatusLine   = { fg = p.fg, bg = bar },
+    StatusLineNC = { fg = p.comment, bg = bar },
+    TabLine      = { fg = p.comment, bg = bar },
+    TabLineSel   = { fg = p.fg, bg = canvas },
+    TabLineFill  = { bg = bar },
+    WinBar       = { fg = p.fg, bg = canvas },
+    WinBarNC     = { fg = p.comment, bg = canvas },
+    Title        = { fg = p.fg, bold = true },
+    Directory    = { fg = p.accent },
+    NonText      = { fg = p.invisible },
+    Whitespace   = { fg = p.border_soft },
+    SpecialKey   = { fg = p.invisible },
+    Conceal      = { fg = p.comment },
+    ErrorMsg     = { fg = p.error },
+    WarningMsg   = { fg = p.warn },
+    ModeMsg      = { fg = p.fg },
+    MoreMsg      = { fg = p.ok },
+    Question     = { fg = p.ok },
+    QuickFixLine = { bg = p.bg_line },
+    WildMenu     = { bg = p.visual },
+    SpellBad     = { undercurl = true, sp = p.error },
+    SpellCap     = { undercurl = true, sp = p.warn },
+    SpellLocal   = { undercurl = true, sp = p.property },
+    SpellRare    = { undercurl = true, sp = p.keyword },
+
+    -- Syntax (legacy groups; Treesitter links below refine)
+    Comment      = { fg = p.comment, italic = true },
+    Constant     = { fg = p.string },
+    String       = { fg = p.string },
+    Character    = { fg = p.string },
+    Number       = { fg = p.number },
+    Boolean      = { fg = p.string },
+    Float        = { fg = p.number },
+    Identifier   = { fg = p.variable },
+    Function     = { fg = p.fn },
+    Statement    = { fg = p.keyword },
+    Keyword      = { fg = p.keyword },
+    Conditional  = { fg = p.keyword },
+    Repeat       = { fg = p.keyword },
+    Label        = { fg = p.type },
+    Operator     = { fg = p.fg_dim },
+    Exception    = { fg = p.keyword },
+    PreProc      = { fg = p.keyword },
+    Include      = { fg = p.keyword },
+    Define       = { fg = p.keyword },
+    Macro        = { fg = p.accent },
+    Type         = { fg = p.type },
+    StorageClass = { fg = p.type },
+    Structure    = { fg = p.type },
+    Typedef      = { fg = p.type },
+    Special      = { fg = p.accent },
+    SpecialChar  = { fg = p.keyword },
+    Delimiter    = { fg = p.muted },
+    Tag          = { fg = p.tag },
+    Todo         = { fg = p.bg, bg = p.warn, bold = true },
+    Error        = { fg = p.error },
+    Underlined   = { fg = p.accent, underline = true },
+
+    -- Treesitter
+    ["@comment"]               = { link = "Comment" },
+    ["@comment.documentation"] = { fg = p.comment, italic = true },
+    ["@comment.error"]         = { fg = p.error },
+    ["@comment.warning"]       = { fg = p.warn },
+    ["@comment.todo"]          = { link = "Todo" },
+    ["@comment.note"]          = { fg = p.accent },
+    ["@keyword"]               = { fg = p.keyword },
+    ["@keyword.function"]      = { fg = p.keyword },
+    ["@keyword.return"]        = { fg = p.keyword },
+    ["@keyword.operator"]      = { fg = p.keyword },
+    ["@keyword.import"]        = { fg = p.keyword },
+    ["@keyword.exception"]     = { fg = p.keyword },
+    ["@keyword.conditional"]   = { fg = p.keyword },
+    ["@keyword.repeat"]        = { fg = p.keyword },
+    ["@conditional"]           = { fg = p.keyword },
+    ["@repeat"]                = { fg = p.keyword },
+    ["@exception"]             = { fg = p.keyword },
+    ["@function"]              = { fg = p.fn },
+    ["@function.call"]         = { fg = p.fn },
+    ["@function.builtin"]      = { fg = p.accent },
+    ["@function.macro"]        = { fg = p.accent },
+    ["@function.method"]       = { fg = p.fn },
+    ["@function.method.call"]  = { fg = p.fn },
+    ["@method"]                = { fg = p.fn },
+    ["@method.call"]           = { fg = p.fn },
+    ["@constructor"]           = { fg = p.tag },
+    ["@parameter"]             = { fg = p.param },
+    ["@variable.parameter"]    = { fg = p.param },
+    ["@variable"]              = { fg = p.variable },
+    ["@variable.builtin"]      = { fg = p.variable },
+    ["@variable.member"]       = { fg = p.property },
+    ["@property"]              = { fg = p.property },
+    ["@field"]                 = { fg = p.property },
+    ["@attribute"]             = { fg = p.property },
+    ["@module"]                = { fg = p.type },
+    ["@string"]                = { fg = p.string },
+    ["@string.escape"]         = { fg = p.keyword },
+    ["@string.regex"]          = { fg = p.number },
+    ["@string.regexp"]         = { fg = p.number },
+    ["@string.special"]        = { fg = p.str_special },
+    ["@string.special.symbol"] = { fg = p.str_special },
+    ["@string.special.url"]    = { fg = p.link, underline = true },
+    ["@character"]             = { fg = p.string },
+    ["@character.special"]     = { fg = p.keyword },
+    ["@number"]                = { fg = p.number },
+    ["@number.float"]          = { fg = p.number },
+    ["@boolean"]               = { fg = p.string },
+    ["@constant"]              = { fg = p.string },
+    ["@constant.builtin"]      = { fg = p.string },
+    ["@constant.macro"]        = { fg = p.accent },
+    ["@type"]                  = { fg = p.type },
+    ["@type.builtin"]          = { fg = p.type },
+    ["@type.definition"]       = { fg = p.type },
+    ["@namespace"]             = { fg = p.type },
+    ["@operator"]              = { fg = p.fg_dim },
+    ["@punctuation"]           = { fg = p.muted },
+    ["@punctuation.bracket"]   = { fg = p.muted },
+    ["@punctuation.delimiter"] = { fg = p.muted },
+    ["@punctuation.special"]   = { fg = p.keyword },
+    ["@tag"]                   = { fg = p.tag },
+    ["@tag.builtin"]           = { fg = p.tag },
+    ["@tag.attribute"]         = { fg = p.property },
+    ["@tag.delimiter"]         = { fg = p.muted },
+    ["@label"]                 = { fg = p.type },
+    ["@markup.raw"]            = { fg = p.string },
+    ["@markup.link"]           = { fg = p.accent },
+    ["@markup.link.url"]       = { fg = p.link, underline = true },
+    ["@markup.heading"]        = { fg = p.fg, bold = true },
+    ["@markup.italic"]         = { italic = true },
+    ["@markup.strong"]         = { bold = true },
+    ["@markup.list"]           = { fg = p.keyword },
+    ["@text.literal"]          = { fg = p.string },
+    ["@text.title"]            = { fg = p.fg, bold = true },
+    ["@text.uri"]              = { fg = p.link, underline = true },
+    ["@text.emphasis"]         = { italic = true },
+    ["@text.strong"]           = { bold = true },
+
+    -- LSP semantic tokens
+    ["@lsp.type.parameter"] = { fg = p.param },
+    ["@lsp.type.property"]  = { fg = p.property },
+    ["@lsp.type.variable"]  = { fg = p.variable },
+    ["@lsp.type.namespace"] = { fg = p.type },
+    ["@lsp.type.class"]     = { fg = p.type },
+    ["@lsp.type.enum"]      = { fg = p.tag },
+    ["@lsp.type.interface"] = { fg = p.type },
+    ["@lsp.type.struct"]    = { fg = p.type },
+    ["@lsp.type.decorator"] = { fg = p.property },
+
+    -- Diagnostics
+    DiagnosticError = { fg = p.error },
+    DiagnosticWarn  = { fg = p.warn },
+    DiagnosticInfo  = { fg = p.accent },
+    DiagnosticHint  = { fg = p.hint },
+    DiagnosticOk    = { fg = p.ok },
+    DiagnosticUnderlineError = { undercurl = true, sp = p.error },
+    DiagnosticUnderlineWarn  = { undercurl = true, sp = p.warn },
+    DiagnosticUnderlineInfo  = { undercurl = true, sp = p.accent },
+    DiagnosticUnderlineHint  = { undercurl = true, sp = p.hint },
+    DiagnosticUnderlineOk    = { undercurl = true, sp = p.ok },
+    DiagnosticVirtualTextError = { fg = p.error, bg = p.error_bg },
+    DiagnosticVirtualTextWarn  = { fg = p.warn, bg = p.warn_bg },
+    DiagnosticVirtualTextInfo  = { fg = p.accent, bg = p.info_bg },
+    DiagnosticVirtualTextHint  = { fg = p.hint, bg = p.bg_element },
+    LspReferenceText  = { bg = p.bg_element },
+    LspReferenceRead  = { bg = p.bg_element },
+    LspReferenceWrite = { bg = p.border },
+    LspInlayHint      = { fg = p.comment, bg = p.bg_element },
+
+    -- Git / diff
+    DiffAdd     = { fg = p.ok, bg = p.ok_bg },
+    DiffChange  = { fg = p.warn, bg = p.warn_bg },
+    DiffDelete  = { fg = p.error, bg = p.error_bg },
+    DiffText    = { fg = p.fg, bg = p.warn_bg },
+    diffAdded   = { fg = p.ok },
+    diffRemoved = { fg = p.error },
+    diffChanged = { fg = p.warn },
+    Added       = { fg = p.ok },
+    Removed     = { fg = p.error },
+    Changed     = { fg = p.warn },
+    GitSignsAdd    = { fg = p.ok },
+    GitSignsChange = { fg = p.warn },
+    GitSignsDelete = { fg = p.error },
+
+    -- Telescope
+    TelescopeBorder       = { fg = p.border, bg = bar },
+    TelescopeNormal       = { fg = p.fg, bg = bar },
+    TelescopePromptNormal = { fg = p.fg, bg = float },
+    TelescopePromptBorder = { fg = p.border, bg = float },
+    TelescopePromptTitle  = { fg = p.accent, bold = true },
+    TelescopeSelection    = { fg = p.fg, bg = p.visual },
+    TelescopeMatching     = { fg = p.accent, bold = true },
+
+    -- Which-key / file tree / completion
+    WhichKey        = { fg = p.accent },
+    WhichKeyGroup   = { fg = p.keyword },
+    WhichKeyDesc    = { fg = p.fg },
+    WhichKeyBorder  = { fg = p.border, bg = float },
+    NeoTreeNormal   = { fg = p.fg, bg = bar },
+    NeoTreeNormalNC = { fg = p.fg, bg = bar },
+    NeoTreeEndOfBuffer = { fg = p.invisible, bg = bar },
+    NeoTreeWinSeparator = { fg = split, bg = bar },
+    NeoTreeGitAdded    = { fg = p.ok },
+    NeoTreeGitModified = { fg = p.warn },
+    NeoTreeGitDeleted  = { fg = p.error },
+    CmpItemAbbrMatch = { fg = p.accent, bold = true },
+    CmpItemAbbrDeprecated = { fg = p.comment, strikethrough = true },
+    CmpItemKind      = { fg = p.property },
+    BlinkCmpLabelMatch = { fg = p.accent, bold = true },
+  }
+end
+
+--- Apply a variant.
+--- @param variant string|nil "light" (default) or "dark"
+--- @param opts table|nil options merged over M.options for this call
+function M.load(variant, opts)
+  variant = variant or "light"
+  if opts then M.setup(opts) end
+  local p = M.palettes[variant]
+  if not p then
+    error(("spalvos: unknown variant %q (expected \"light\" or \"dark\")"):format(variant))
+  end
+
+  if vim.g.colors_name then vim.cmd("hi clear") end
+  if vim.fn.exists("syntax_on") == 1 then vim.cmd("syntax reset") end
+  vim.o.termguicolors = true
+  vim.o.background = variant
+  vim.g.colors_name = "spalvos-" .. variant
+
+  for name, hl in pairs(M.groups(p, resolved())) do
+    vim.api.nvim_set_hl(0, name, hl)
+  end
+
+  -- :terminal buffers get the matching ghostty palette.
+  for i, hex in ipairs(p.ansi) do
+    vim.g["terminal_color_" .. (i - 1)] = hex
+  end
+end
+
+return M

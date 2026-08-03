@@ -32,6 +32,7 @@ a surface can never sink below the ink.
 |------|------|-------|
 | **Tailwind / CSS** | `spalvos.css` | The source of truth — primitives + themed tokens as `@theme` custom properties. `tailwind/namespaced-spalvos.css` and `tailwind/overridden-spalvos.css` are packaging variants. |
 | **Zed** | `zed/spalvos.json` | Light + dark editor themes, full syntax map. |
+| **Neovim** | `nvim/` | `spalvos-light` / `spalvos-dark` colorschemes — both variants in `nvim/lua/spalvos.lua`, mirroring the Zed syntax map. |
 | **Ghostty** | `ghostty/` | `spalvos-dark` / `spalvos-light` terminal themes (OKLCH → sRGB). |
 | **Omarchy** | `omarchy/` | `spalvos-dark` / `spalvos-light` desktop themes (`colors.toml` + Neovim + backgrounds). |
 
