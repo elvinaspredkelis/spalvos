@@ -5,7 +5,7 @@
 -- the token -> colour assignments are lifted verbatim from the Zed theme so
 -- the editor, the terminal (../../ghostty) and the desktop (../../omarchy)
 -- all agree. Everything derives from the OKLCH primitives in
--- ../../tailwind/spalvos.css — don't hand-tweak hexes here; change the
+-- ../../spalvos.css — don't hand-tweak hexes here; change the
 -- primitives, reconvert, copy the values back.
 --
 -- Usage:

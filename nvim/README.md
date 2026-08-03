@@ -1,6 +1,6 @@
 # Spalvos for Neovim
 
-Neovim port of the spalvos color system (`../tailwind/spalvos.css`), structured
+Neovim port of the spalvos color system (`../spalvos.css`), structured
 after the Zed port (`../zed/spalvos.json`): one file carries both variants, each
 variant is the same key set with a different hex behind every key, and the
 token → colour assignments are lifted verbatim from the Zed theme — so the
@@ -81,6 +81,6 @@ vendored twins of this port; if you change colours here, re-derive them too.
 ## Regenerating
 
 Values are lifted from `../zed/spalvos.json`, which itself derives from the
-OKLCH primitives in `../tailwind/spalvos.css`. Don't hand-tweak hexes here —
+OKLCH primitives in `../spalvos.css`. Don't hand-tweak hexes here —
 change the primitives, reconvert, update the Zed theme, then copy the values
 across.
