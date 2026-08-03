@@ -6,8 +6,8 @@
 -- editor matches Zed and the terminal exactly. No external dependency.
 
 local p = {
-  bg       = "#1f1f1f", -- editor canvas (one step above the #171717 desktop)
-  bg_dark  = "#171717", -- statusline / floats / sidebars
+  bg       = "#2d2c2c", -- editor canvas (one step above the #252424 desktop)
+  bg_dark  = "#252424", -- statusline / floats / sidebars
   bg_float = "#2c2b29", -- popups, elevated surfaces
   fg       = "#ecebe9",
   fg_dim   = "#b5b4b1",

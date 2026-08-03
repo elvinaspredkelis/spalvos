@@ -6,16 +6,16 @@
 -- editor matches Zed and the terminal exactly. No external dependency.
 
 local p = {
-  bg       = "#fbfbfa",
-  bg_dark  = "#f7f7f6", -- statusline / floats / sidebars
+  bg       = "#fafaf9",
+  bg_dark  = "#f3f3f2", -- statusline / floats / sidebars
   bg_float = "#ffffff", -- popups, elevated surfaces
   fg       = "#343331",
   fg_dim   = "#565552",
   comment  = "#908f8c",
   gutter   = "#b5b4b1",
-  cursorln = "#f7f7f6",
+  cursorln = "#f3f3f2",
   visual   = "#cbf2f4", -- cyan selection wash
-  border   = "#e7e7e6",
+  border   = "#dbdbda",
   red      = "#b41b3c",
   green    = "#13955e",
   orange   = "#954d0a",

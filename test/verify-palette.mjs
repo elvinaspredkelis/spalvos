@@ -85,10 +85,35 @@ for (const [label, [fg, bg], target] of checks) {
   else console.log(`  ✓ ${label}: ${r.toFixed(2)}:1 (≥ ${target})`);
 }
 
-// 3. Invariant: dark frame references the neutral-1000 floor (not a lower value)
-if (!/--color-paper-frame:\s*var\(--color-neutral-1000\)/.test(darkBlock))
-  fail("dark paper-frame must be var(--color-neutral-1000) (the shared floor)");
-else console.log("  ✓ dark frame == neutral-1000 floor");
+// 3. Invariant: no dark surface sinks below the ink floor. The rule is that a
+//    surface can never go darker than the darkest ink — i.e. >= neutral-1000,
+//    NOT equal to it. Pinning frame to the floor leaves the ladder no room and
+//    crushes every surface toward black.
+{
+  const floor = light["neutral-1000"][0];
+  const darkSurfaces = [...darkBlock.matchAll(/--color-paper-([\w-]+):\s*oklch\(([\d.]+)/g)];
+  if (!darkSurfaces.length) fail("no dark paper surfaces found");
+  for (const m of darkSurfaces) {
+    if (+m[2] < floor) fail(`dark paper-${m[1]}: L ${m[2]} sinks below the neutral-1000 ink floor (${floor})`);
+  }
+  const lowest = Math.min(...darkSurfaces.map((m) => +m[2]));
+  if (lowest >= floor)
+    console.log(`  ✓ dark surfaces stay above the ink floor (lowest ${lowest} >= ${floor})`);
+}
+
+// 3b. Paper ladders must be perceptibly separated. Below ~0.015 L two large
+//     flat fields are indistinguishable, so the elevation tokens do no work.
+for (const [label, block] of [["light", css.slice(0, darkStart)], ["dark", darkBlock]]) {
+  const steps = [...block.matchAll(/--color-paper-([\w-]+):\s*oklch\(([\d.]+)/g)].map((m) => [m[1], +m[2]]);
+  let worst = Infinity, worstPair = "";
+  for (let i = 1; i < steps.length; i++) {
+    const d = steps[i - 1][1] - steps[i][1];
+    if (d <= 0) fail(`${label} paper ladder not monotonic at ${steps[i - 1][0]} -> ${steps[i][0]}`);
+    if (d < worst) { worst = d; worstPair = `${steps[i - 1][0]}/${steps[i][0]}`; }
+  }
+  if (worst < 0.015) fail(`${label} paper: ${worstPair} only ΔL ${worst.toFixed(3)} apart (< 0.015, below JND)`);
+  else console.log(`  ✓ ${label} paper ladder: tightest step ΔL ${worst.toFixed(3)} (${worstPair})`);
+}
 
 // 3. Port fidelity — every hex in a port is a faithful sRGB rendering of a canon
 //    oklch() literal (Δ ≤ 2/255 per channel). Catches hand-tweaked port colors.

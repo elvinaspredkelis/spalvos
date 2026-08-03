@@ -10,7 +10,7 @@
 # Foreground = neutral-800 (~9.5:1 on paper). Tuning history:
 # neutral-600 was too washed for dense terminal text; neutral-950
 # read as harsh near-black in long sessions; 800 is the soft spot.
-background = #fbfbfa
+background = #fafaf9
 foreground = #343331
 
 # --- ANSI palette ---
@@ -38,7 +38,7 @@ palette = 3=#954d0a
 palette = 4=#087075
 palette = 5=#a70881
 palette = 6=#0d959b
-palette = 7=#f2f2f1
+palette = 7=#ebebea
 palette = 8=#73716e
 palette = 9=#de1c4a
 palette = 10=#13955e
