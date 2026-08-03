@@ -1,0 +1,52 @@
+# Spalvos Dark — fish port of the spalvos color system.
+#
+# Install to ~/.config/fish/themes/ and select with
+#   fish_config theme choose "spalvos-dark"
+# or let ./spalvos-theme.fish load it per shell, following the desktop mode.
+#
+# Same key set as ./spalvos-light.theme with the dark end of the same
+# primitives — see that file for the full rationale.
+#
+# The dark end had its own casualty in fish's frozen defaults:
+# `fish_color_autosuggestion brblack` resolves to neutral-700 (#41403d) in
+# spalvos-dark, 1.73:1 on the background — autosuggestions simply did not
+# render. Pinned hexes fix it.
+#
+# Verified by ../test/verify-legibility.mjs against the terminal canvas (#171717).
+
+# --- Syntax --------------------------------------------------------------
+fish_color_normal ecebe9
+fish_color_command 82a1f7
+fish_color_keyword de54b3
+fish_color_quote 5ec990
+fish_color_redirection 42cbd2
+fish_color_end 908f8c
+fish_color_option f99b56
+fish_color_error eb5d6d
+fish_color_param d5d4d2
+fish_color_comment 908f8c
+fish_color_operator b5b4b1
+fish_color_escape fdb482
+fish_color_autosuggestion 73716e
+fish_color_cancel -r
+fish_color_valid_path --underline
+
+# --- Bands ---------------------------------------------------------------
+fish_color_selection ecebe9 --background=022e31
+fish_color_search_match ecebe9 --background=3f1e04
+fish_color_history_current --bold
+
+# --- Prompt roles --------------------------------------------------------
+fish_color_cwd 42cbd2
+fish_color_cwd_root eb5d6d
+fish_color_user 5ec990
+fish_color_host ecebe9
+fish_color_host_remote f99b56
+fish_color_status eb5d6d
+
+# --- Completion pager ----------------------------------------------------
+fish_pager_color_completion ecebe9
+fish_pager_color_description 908f8c
+fish_pager_color_prefix 42cbd2 --bold --underline
+fish_pager_color_progress 0b0a09 --background=42cbd2
+fish_pager_color_selected_background --background=222220

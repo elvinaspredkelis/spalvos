@@ -13,3 +13,5 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - name: Verify palette, ports, and Tailwind variants
         run: bun test/verify-palette.mjs
+      - name: Verify TUI port legibility
+        run: bun test/verify-legibility.mjs

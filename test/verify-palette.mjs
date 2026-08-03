@@ -108,15 +108,30 @@ const ports = [
   { file: "../ghostty/spalvos-light", strip: true },
   { file: "../omarchy/spalvos-dark/colors.toml", strip: true },
   { file: "../omarchy/spalvos-light/colors.toml", strip: true },
+  { file: "../herdr/spalvos-dark.toml", strip: true },
+  { file: "../herdr/spalvos-light.toml", strip: true },
+  // fish .theme files write hex WITHOUT a leading '#' (`fish_color_normal
+  // 343331`) — that is the format's convention. Without `bare` the default
+  // regex matches nothing here and the check passes vacuously.
+  { file: "../fish/spalvos-dark.theme", strip: true, bare: true },
+  { file: "../fish/spalvos-light.theme", strip: true, bare: true },
   // zed carries a few intentional derived tones (dim ANSI + a selection tint)
   // that aren't raw primitives; allowlist them so any OTHER foreign hex fails.
   { file: "../zed/spalvos.json", strip: false, allow: new Set(["#0b5b38", "#7a4008", "#065e61", "#003c3f"]) },
+  // nvim mirrors the zed syntax map and inherits exactly one derived tone from
+  // it — the dark selection wash. Kept to that single entry on purpose: a wider
+  // allowlist would mask real drift.
+  { file: "../nvim/lua/spalvos.lua", strip: true, allow: new Set(["#003c3f"]) },
 ];
 let portForeign = 0;
-for (const { file, strip, allow } of ports) {
+for (const { file, strip, bare, allow } of ports) {
   let text = readFileSync(join(dir, file), "utf8");
-  if (strip) text = text.split("\n").filter((l) => !/^\s*#/.test(l)).join("\n");
-  const hexes = [...new Set([...text.matchAll(/#[0-9a-fA-F]{6}\b/g)].map((m) => m[0].toLowerCase()))];
+  if (strip) text = text.split("\n").filter((l) => !/^\s*(#|--)/.test(l)).join("\n");
+  const found = bare
+    ? [...text.matchAll(/\b([0-9a-fA-F]{6})\b/g)].map((m) => "#" + m[1])
+    : [...text.matchAll(/#[0-9a-fA-F]{6}\b/g)].map((m) => m[0]);
+  const hexes = [...new Set(found.map((h) => h.toLowerCase()))];
+  if (!hexes.length) { fail(`${file}: no hexes found — the check would pass vacuously`); portForeign++; continue; }
   const bad = hexes.filter((h) => !isCanon(h) && !allow?.has(h));
   if (bad.length) { fail(`${file}: non-canon hex(es): ${bad.join(" ")}`); portForeign += bad.length; }
 }

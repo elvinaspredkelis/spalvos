@@ -34,6 +34,8 @@ a surface can never sink below the ink.
 | **Zed** | `zed/spalvos.json` | Light + dark editor themes, full syntax map. |
 | **Neovim** | `nvim/` | `spalvos-light` / `spalvos-dark` colorschemes — both variants in `nvim/lua/spalvos.lua`, mirroring the Zed syntax map. |
 | **Ghostty** | `ghostty/` | `spalvos-dark` / `spalvos-light` terminal themes (OKLCH → sRGB). |
+| **Herdr** | `herdr/` | `[theme.custom]` blocks for the terminal workspace manager. Pins its own hexes rather than reading the ANSI palette — see the port's README for why. |
+| **Fish** | `fish/` | `.theme` files + a `conf.d` loader that follows the desktop mode, plus the Tide prompt fixes. |
 | **Omarchy** | `omarchy/` | `spalvos-dark` / `spalvos-light` desktop themes (`colors.toml` + Neovim + backgrounds). |
 
 Everything downstream derives from the OKLCH primitives in `spalvos.css`. Don't
@@ -49,6 +51,24 @@ their WCAG targets.
 ```sh
 bun test/verify-palette.mjs
 ```
+
+`test/verify-legibility.mjs` covers the TUI ports, where a colour's legibility
+depends on which surface it lands on: every text-capable slot in `ghostty/`,
+`herdr/` and `fish/` is checked against *every* surface it can be drawn on, not
+just the default background.
+
+```sh
+bun test/verify-legibility.mjs
+```
+
+### One thing to know before writing a port
+
+The ANSI **white** slots (7/15) are paper *surfaces* at the light end, and the
+**black** slots (0/8) are surface tones at the dark end. That is correct ANSI
+practice, and it means a TUI must never paint text with them. Consumers that do
+— fish's stock theme, Tide, herdr's built-in `terminal` theme — go invisible in
+one mode or the other. The fix belongs in the consumer: bending the palette to
+suit one of them breaks all the rest.
 
 ## License
 

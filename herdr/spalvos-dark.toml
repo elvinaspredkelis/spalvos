@@ -1,0 +1,58 @@
+# Spalvos Dark — herdr port of the spalvos color system.
+#
+# Drop-in `[theme]` section for ~/.config/herdr/config.toml. Installed by
+# ../bin/spalvos-mode-apply, which splices it between the marker comments.
+# See ./spalvos-light.toml for the full rationale and the token-role map —
+# this file is the same 16 keys with the dark end of the same primitives.
+#
+# Dark was less broken than light under herdr's `terminal` theme (ANSI 7/15
+# ARE ink at the dark end), but not sound: `surface_dim` mapped to ANSI 8
+# (neutral-700, #41403d) at 1.73:1 on the background, so dividers and the
+# selected-row band were both essentially invisible. Pinning the tokens fixes
+# that too, and keeps the two variants structurally identical.
+#
+# Every value is a spalvos primitive. Verified by ../test/verify-legibility.mjs:
+# each ink token clears 4.5:1 and each UI/status token 3:1 against ALL FOUR
+# surface beds (panel_bg, surface_dim, surface0, surface1).
+
+[theme]
+# Keep the terminal as the base so the pane canvas stays ghostty's.
+name = "terminal"
+
+[theme.custom]
+# --- Surfaces --------------------------------------------------------------
+# neutral-1000, the true-black floor — this is what the CSS calls dark
+# `paper-frame`, "app chrome — sidebar, toolbar". THE INVARIANT applies: the
+# floor is the bottom, so every other surface here lifts AWAY from it, the
+# mirror of light lifting toward white.
+panel_bg = "#0b0a09"    # neutral-1000 (dark paper-frame = the floor)
+
+# Dual duty: divider glyph AND selected-row band (see the light variant).
+surface_dim = "#222220" # neutral-950
+surface0 = "#2c2b29"    # neutral-900
+surface1 = "#343331"    # neutral-800
+
+# --- Ink ladder (neutral spine) -------------------------------------------
+# The light ladder read in reverse: ink lightens as it strengthens.
+overlay0 = "#b5b4b1"    # neutral-300 — sidebar labels, AA
+overlay1 = "#908f8c"    # neutral-400 (= dark muted-fg) — dim glyphs, UI floor
+subtext0 = "#d5d4d2"    # neutral-200
+text = "#ecebe9"        # neutral-100 — same ink as the ghostty foreground
+
+# --- Focus ----------------------------------------------------------------
+# cyan-400, the dark-mode focus hue (nvim dark `accent`, the ghostty
+# spalvos-dark cyan). panel_bg reads as its label at 10.08:1.
+accent = "#42cbd2"      # cyan-400
+
+# --- Status hues ----------------------------------------------------------
+# The 400 steps — the dark `-strong` weights from the CSS semantic layer,
+# which is also what ../ghostty/spalvos-dark uses for both normal and bright.
+red = "#eb5d6d"         # rose-400
+green = "#5ec990"       # emerald-400
+yellow = "#f99b56"      # amber-400
+blue = "#5b7ef0"        # blue-400
+mauve = "#de54b3"       # magenta-400
+teal = "#7ad8dd"        # cyan-300 — one step off accent, so teal stays
+                        # distinguishable from focus (the light variant has no
+                        # such headroom and collapses them).
+peach = "#fdb482"       # amber-300

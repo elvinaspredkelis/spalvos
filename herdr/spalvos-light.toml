@@ -1,0 +1,92 @@
+# Spalvos Light — herdr port of the spalvos color system.
+#
+# Drop-in `[theme]` section for ~/.config/herdr/config.toml. Installed by
+# ../bin/spalvos-mode-apply, which splices it between the marker comments.
+#
+# WHY THIS FILE EXISTS — herdr's built-in `terminal` theme paints its 16 UI
+# tokens out of the ANSI palette: `overlay0` -> ANSI 7, `text` -> ANSI 15,
+# `surface_dim` -> ANSI 8, `accent` -> ANSI 4. That mapping assumes a DARK
+# terminal, where 7/15 are the light end of the ink ramp. In any light ANSI
+# theme they are not ink at all — spalvos-light puts the paper surfaces there
+# (white = paper-sunken, bright white = paper-raised, see
+# ../ghostty/spalvos-light). So on paper the sidebar section headers and item
+# labels landed at 1.08:1 and the primary text at 1.04:1 — invisible. The fix
+# is not to bend the ANSI palette (light terminals legitimately keep light
+# whites); it is to give herdr explicit hexes, which is what this file does.
+#
+# `name = "terminal"` is kept deliberately: the pane canvas and the plain text
+# herdr draws with a `reset` keep coming from ghostty, so they track the
+# terminal exactly. Only the 16 chrome tokens are pinned here.
+#
+# TOKEN ROLES were established by instrumenting herdr 0.7.5 — each token was
+# set to a unique probe colour and the emitted SGR sequences were read back:
+#   panel_bg     sidebar + tab-bar background; ALSO the label ink on `accent`
+#   surface_dim  pane/sidebar dividers (as fg) AND the selected-row band (as bg)
+#   surface0/1   panels, wells and raised rows in the settings/help screens
+#   overlay0     section headers ("spaces", "agents") + unselected item labels
+#   overlay1     minor glyphs (the new-tab `+`), dim chrome
+#   subtext0     secondary text
+#   text         primary text
+#   accent       focus: active-tab fill
+#   red…peach    agent/status hues
+#
+# The names are catppuccin's, but the ASSIGNMENT here is by observed role, not
+# by catppuccin's lightness order — same reasoning as ../nvim/lua/spalvos.lua
+# ("named by ROLE, not by hue"). That is why overlay0 is a STRONGER ink than
+# overlay1: overlay0 carries the sidebar's labels and has to clear AA, while
+# overlay1 only carries glyphs and is held to the 3:1 UI floor.
+#
+# Every value is a spalvos primitive. Verified by ../test/verify-legibility.mjs:
+# each ink token clears 4.5:1 and each UI/status token 3:1 against ALL FOUR
+# surface beds (panel_bg, surface_dim, surface0, surface1).
+
+[theme]
+# Keep the terminal as the base so the pane canvas stays ghostty's.
+name = "terminal"
+
+[theme.custom]
+# --- Surfaces --------------------------------------------------------------
+# Chrome sits one gentle step off the pane canvas, the way
+# ../nvim/lua/spalvos.lua uses `bg_dark` for "panels, statusline, tab bar,
+# sidebars". paper-frame (#e7e7e6) was tried first — it is the CSS token
+# literally named "app chrome" — but a bed that deep costs every accent ~0.6
+# of contrast and pushed the dimmest ink tier under 4.5:1. paper-wash is the
+# widest bed that keeps the whole ladder AA.
+panel_bg = "#f7f7f6"    # paper-wash
+
+# Dual duty: the divider glyph AND the selected-row band. A divider wants
+# contrast, a band wants closeness — paper-frame is the compromise, and it is
+# also exactly the light `border` weight (neutral-950 at 20% over paper).
+# As a band it still leaves the ink at 10.2:1.
+surface_dim = "#e7e7e6" # paper-frame
+
+# Raised surfaces lift TOWARD white in light mode.
+surface0 = "#fbfbfa"    # paper-base — matches the pane canvas
+surface1 = "#ffffff"    # paper-raised — the ceiling
+
+# --- Ink ladder (neutral spine) -------------------------------------------
+overlay0 = "#565552"    # neutral-600 (= muted-fg) — sidebar labels, AA
+overlay1 = "#73716e"    # neutral-500 — dim glyphs, UI floor
+subtext0 = "#41403d"    # neutral-700
+text = "#343331"        # neutral-800 — same ink as the ghostty foreground
+
+# --- Focus ----------------------------------------------------------------
+# Cyan is spalvos' focus hue in light (nvim `accent`, the ghostty cursor).
+# cyan-700 is dark enough that panel_bg reads as its label at 5.46:1.
+accent = "#087075"      # cyan-700
+
+# --- Status hues ----------------------------------------------------------
+# Light duty runs one step darker than the ghostty palette because these sit
+# on chrome rather than paper. yellow/peach split amber 700/600 and blue takes
+# blue-600, exactly as ../nvim/lua/spalvos.lua splits `type` from
+# `str_special`.
+red = "#b41b3c"         # rose-600
+green = "#107147"       # emerald-700
+yellow = "#954d0a"      # amber-700
+blue = "#2e49bd"        # blue-600
+mauve = "#a70881"       # magenta-600
+teal = "#087075"        # cyan-700 — collapses onto accent; cyan-600 is the
+                        # only step that reads as unambiguously teal on paper
+                        # and it misses 3:1 on the selected-row band.
+                        # ../ghostty/spalvos-light collapses slots the same way.
+peach = "#c4660d"       # amber-600

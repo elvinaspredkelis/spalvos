@@ -1,0 +1,58 @@
+# Spalvos Light — fish port of the spalvos color system.
+#
+# Install to ~/.config/fish/themes/ and select with
+#   fish_config theme choose "spalvos-light"
+# or let ./spalvos-theme.fish load it per shell, following the desktop mode.
+#
+# Colours are bare hex (fish's .theme format — no leading '#'), taken from the
+# OKLCH primitives in ../spalvos.css and matched to the syntax roles
+# in ../nvim/lua/spalvos.lua so the shell, the editor and the terminal agree.
+#
+# Why this file exists: fish 4.3 froze its DEFAULT theme into
+# ~/.config/fish/conf.d/fish_frozen_theme.fish as `set --global` variables,
+# which shadow anything universal. Those defaults name ANSI slots — and two of
+# them (`white`, `brwhite`) are the PAPER SURFACES in spalvos-light, not ink,
+# so `fish_pager_color_progress brwhite` rendered at 1.04:1 on paper. Every
+# text role below is pinned to an explicit hex instead of an ANSI slot, so no
+# slot's surface/ink duty can be mistaken again.
+#
+# Verified by ../test/verify-legibility.mjs against the paper-base canvas
+# (#fbfbfa): body roles clear 4.5:1, decorative roles 3:1, and every
+# foreground/background band pair clears 4.5:1.
+
+# --- Syntax --------------------------------------------------------------
+fish_color_normal 343331
+fish_color_command 3858e8
+fish_color_keyword a70881
+fish_color_quote 107147
+fish_color_redirection 087075
+fish_color_end 73716e
+fish_color_option 954d0a
+fish_color_error b41b3c
+fish_color_param 565552
+fish_color_comment 73716e
+fish_color_operator 565552
+fish_color_escape c4660d
+fish_color_autosuggestion 908f8c
+fish_color_cancel -r
+fish_color_valid_path --underline
+
+# --- Bands ---------------------------------------------------------------
+fish_color_selection 343331 --background=cbf2f4
+fish_color_search_match 343331 --background=ffeee4
+fish_color_history_current --bold
+
+# --- Prompt roles --------------------------------------------------------
+fish_color_cwd 087075
+fish_color_cwd_root b41b3c
+fish_color_user 107147
+fish_color_host 343331
+fish_color_host_remote 954d0a
+fish_color_status b41b3c
+
+# --- Completion pager ----------------------------------------------------
+fish_pager_color_completion 343331
+fish_pager_color_description 73716e
+fish_pager_color_prefix 087075 --bold --underline
+fish_pager_color_progress fbfbfa --background=087075
+fish_pager_color_selected_background --background=e7e7e6
