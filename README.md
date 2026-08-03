@@ -22,9 +22,9 @@ spine, authored in **OKLCH** — gamut-safe and perceptually even. Themed tokens
 reference those primitives; a "theme" is just which value wins. Light is the
 default, `[data-theme="dark"]` repoints, and the ports repoint again.
 
-The invariant that makes dark safe: at the dark end the darkest surface and the
-darkest ink are the *same* primitive (`neutral-1000`, the true-black floor), so
-a surface can never sink below the ink.
+The invariant that makes dark safe: no surface ever sinks *below* the darkest
+ink (`neutral-1000`, the true-black floor). Dark `frame` sits just above that
+floor rather than on it, which leaves the six elevations room to separate.
 
 ## Ports
 
