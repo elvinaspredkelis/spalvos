@@ -54,6 +54,13 @@ name = "terminal"
 # widest bed that keeps the whole ladder AA.
 panel_bg = "#f7f7f6"    # paper-wash
 
+# herdr 0.8.x dedicated sidebar tokens (0.7.5 painted these from
+# surface_dim/ANSI; #2792 split them out with dark-grey defaults in the
+# built-in `terminal` theme, which is what showed up as dark selected tabs).
+sidebar_bg = "#f7f7f6"      # paper-wash — same bed as panel_bg
+active_row_bg = "#e7e7e6"   # paper-frame — the old surface_dim band
+selection_bg = "#e7e7e6"    # paper-frame — navigate cursor band
+
 # Dual duty: the divider glyph AND the selected-row band. A divider wants
 # contrast, a band wants closeness — paper-frame is the compromise, and it is
 # also exactly the light `border` weight (neutral-950 at 20% over paper).
@@ -77,7 +84,7 @@ accent = "#087075"      # cyan-700
 
 # --- Status hues ----------------------------------------------------------
 # Light duty runs one step darker than the ghostty palette because these sit
-# on chrome rather than paper. yellow/peach split amber 700/600 and blue takes
+# on chrome rather than paper. yellow and peach share amber 700 (see peach), blue takes
 # blue-600, exactly as ../nvim/lua/spalvos.lua splits `type` from
 # `str_special`.
 red = "#b41b3c"         # rose-600
@@ -89,4 +96,9 @@ teal = "#087075"        # cyan-700 — collapses onto accent; cyan-600 is the
                         # only step that reads as unambiguously teal on paper
                         # and it misses 3:1 on the selected-row band.
                         # ../ghostty/spalvos-light collapses slots the same way.
-peach = "#c4660d"       # amber-600
+peach = "#954d0a"      # amber-700 — collapses onto yellow, mirroring the
+                        # teal==accent collapse above: amber-600 (L61) was a
+                        # ~10-point L outlier against every other status hue on
+                        # this bed (~L49-50), and amber-700 still clears 5.1:1
+                        # on the selected-row band. Roles stay distinguishable
+                        # by context, as teal does.

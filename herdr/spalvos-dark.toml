@@ -27,6 +27,11 @@ name = "terminal"
 # mirror of light lifting toward white.
 panel_bg = "#0b0a09"    # neutral-1000 (dark paper-frame = the floor)
 
+# herdr 0.8.x dedicated tokens (see ../spalvos-light.toml for the role map).
+sidebar_bg = "#0b0a09"      # neutral-1000
+active_row_bg = "#222220"   # neutral-950 — same band as surface_dim
+selection_bg = "#222220"    # neutral-950
+
 # Dual duty: divider glyph AND selected-row band (see the light variant).
 surface_dim = "#222220" # neutral-950
 surface0 = "#2c2b29"    # neutral-900

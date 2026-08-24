@@ -19,10 +19,14 @@ foreground = #ecebe9
 # black = neutral-800, bright black = neutral-700 (comment gray).
 # White ladder sits BELOW the foreground (Macchiato 7 < 15 < fg):
 # white = neutral-300, bright white = neutral-200.
-# Chromatic brights == normals (Macchiato-style), all at the 400
-# step: pastel, and every accent clears ~4.5:1+ on the background.
-# (The recipe's 500/400 pair left normal blue at ~3.5:1 — the
-# classic blue-on-black; the 400s resolve it.)
+# Chromatic normals sit at the 400 step (pastel, every accent clears
+# ~4.5:1+ on the background; the recipe's 500 normal sat at ~3.5:1 —
+# the classic blue-on-black problem the 400s resolve).
+# Chromatic brights lift to the 300 step — NOT == normals. The earlier
+# Macchiato-style collapse (brights == normals) made `bold`-to-bright
+# rendering a no-op for all six chromatic slots, an asymmetry against
+# ../spalvos-light where every chromatic slot keeps a bright step.
+# The 300s are the same ramp herdr-dark uses for teal/peach.
 palette = 0=#343331
 palette = 1=#eb5d6d
 palette = 2=#5ec990
@@ -32,12 +36,12 @@ palette = 5=#de54b3
 palette = 6=#42cbd2
 palette = 7=#b5b4b1
 palette = 8=#41403d
-palette = 9=#eb5d6d
-palette = 10=#5ec990
-palette = 11=#f99b56
-palette = 12=#5b7ef0
-palette = 13=#de54b3
-palette = 14=#42cbd2
+palette = 9=#f58991   # rose-300
+palette = 10=#89d7aa  # emerald-300
+palette = 11=#fdb482  # amber-300
+palette = 12=#82a1f7  # blue-300
+palette = 13=#ea83c6  # magenta-300
+palette = 14=#7ad8dd  # cyan-300
 palette = 15=#d5d4d2
 
 # --- Extras ---

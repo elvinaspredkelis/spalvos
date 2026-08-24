@@ -26,16 +26,19 @@ foreground = #343331
 # one step lighter so they stay >= ~3.3:1 on paper. EXCEPTION — green:
 # emerald-700 (L49) sat only ~17 L above the neutral-800 ink and
 # read as dark gray in log streams, so green normal == bright ==
-# emerald-600 (L59, higher chroma — unambiguously green). Blue
-# duty runs on the CYAN ramp (spalvos blue is violet/hot at every
-# step; cyan hue 200 ≈ Pro Colors' dusty azure): blue = cyan-700,
-# cyan = cyan-600, brights 600/500. bright cyan (cyan-500, L72) is
-# the one airy slot — like blue-on-dark, accents only, not body text.
+# emerald-600 (L59, higher chroma — unambiguously green). Blue uses
+# the BLUE ramp (blue-600 normal, blue-500 bright) — matching
+# herdr-light's `blue` (#2e49bd). The earlier cyan-ramp substitution
+# (cyan-700/600 for slots 4/6) made ANSI blue and ANSI cyan the same
+# hue one step apart in light while dark kept them distinct hues —
+# flipping hue identity across modes. blue-600 clears 7.2:1 on paper.
+# bright cyan (cyan-500, L72) is the one airy slot — like blue-on-dark,
+# accents only, not body text.
 palette = 0=#41403d
 palette = 1=#b41b3c
 palette = 2=#13955e
 palette = 3=#954d0a
-palette = 4=#087075
+palette = 4=#2e49bd   # blue-600
 palette = 5=#a70881
 palette = 6=#0d959b
 palette = 7=#f2f2f1
@@ -43,7 +46,7 @@ palette = 8=#73716e
 palette = 9=#de1c4a
 palette = 10=#13955e
 palette = 11=#c4660d
-palette = 12=#0d959b
+palette = 12=#3858e8  # blue-500
 palette = 13=#cd059e
 palette = 14=#11bbc2
 palette = 15=#ffffff
