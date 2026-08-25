@@ -1,5 +1,7 @@
 # Spalvos
 
+**One palette. Every surface.**
+
 A transportable color system. Warm ink on warm paper (Flexoki / Helply
 lineage), dialed toward neutral — quiet, not cold. One set of OKLCH primitives
 drives a light web UI, a dark web UI, a terminal, an editor, and a desktop —
