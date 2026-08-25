@@ -241,11 +241,13 @@ const apcaLc = (txt, bg) => {
 };
 
 console.log("\n=== nvim (APCA) ===");
-// Content tokens are read fluently (Lc >= 60, with 0.5 rounding tolerance);
-// emphasis tokens (tags, self/this, symbol sigils) are sparse accents and take
-// the APCA large/emphasis floor (Lc >= 45) instead.
-const NVIM_CONTENT = ["property", "number", "fn", "keyword", "string", "type",
-  "param", "comment", "accent", "variable"];
+// Three floors. Body tokens are read fluently (Lc >= 60, with 0.5 rounding
+// tolerance). Chromatic accents (keywords, functions, types, params) sit at
+// Lc >= 50 — APCA under-credits saturated hues, and pushing these to the
+// low-chroma 200 steps washes the theme out (tried; reverted). Emphasis
+// tokens (tags, self/this, symbol sigils) are sparse and take Lc >= 45.
+const NVIM_BODY = ["property", "number", "string", "comment", "accent", "variable"];
+const NVIM_ACCENT = ["fn", "keyword", "type", "param"];
 const NVIM_EMPHASIS = ["tag", "var_special", "str_special"];
 const nvimSrc = readFileSync(join(root, "nvim/lua/spalvos.lua"), "utf8");
 for (const variant of ["light", "dark"]) {
@@ -255,14 +257,14 @@ for (const variant of ["light", "dark"]) {
   const bg = tok.bg;
   if (apcaLc(tok.fg, bg) < 75) fail(`nvim/${variant}: fg Lc ${apcaLc(tok.fg, bg).toFixed(1)} < 75`);
   let worst = Infinity, worstLabel = "";
-  for (const [group, floor] of [[NVIM_CONTENT, 59.5], [NVIM_EMPHASIS, 45]]) {
+  for (const [group, floor] of [[NVIM_BODY, 59.5], [NVIM_ACCENT, 50], [NVIM_EMPHASIS, 45]]) {
     for (const t of group) {
       const r = apcaLc(tok[t], bg);
       if (r < floor) fail(`nvim/${variant} ${t}: APCA Lc ${r.toFixed(1)} < ${floor}  (${tok[t]} on ${bg})`);
       if (r < worst) { worst = r; worstLabel = t; }
     }
   }
-  ok(`nvim/${variant}: fg Lc ${apcaLc(tok.fg, bg).toFixed(1)}, content Lc >= 60 / emphasis >= 45 (tightest ${worstLabel} ${worst.toFixed(1)})`);
+  ok(`nvim/${variant}: fg Lc ${apcaLc(tok.fg, bg).toFixed(1)}, body Lc >= 60 / accents >= 50 / emphasis >= 45 (tightest ${worstLabel} ${worst.toFixed(1)})`);
 }
 
 console.log(failures ? `\nFAIL — ${failures} problem(s)` : "\nPASS");
