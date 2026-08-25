@@ -130,7 +130,7 @@ M.palettes = {
     -- Syntax accents
     accent      = "#42cbd2",
     property    = "#11bbc2",
-    number      = "#fdb482", -- orange-300 peach: digits ≠ builtins ≠ properties (was 3rd cyan)
+    number      = "#f5810f", -- orange-500 crest: digits pop; shared with self/super (sparse, shape-distinct)
     fn          = "#82a1f7",
     keyword     = "#ea83c6",
     string      = "#15bb77",

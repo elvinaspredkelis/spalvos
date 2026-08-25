@@ -523,7 +523,7 @@
             "font_style": "underline"
           },
           "number": {
-            "color": "#fdb482"
+            "color": "#f5810f"
           },
           "operator": {
             "color": "#b5b4b1"
@@ -560,7 +560,7 @@
             "color": "#ea83c6"
           },
           "string.regex": {
-            "color": "#fdb482"
+            "color": "#f5810f"
           },
           "string.special": {
             "color": "#ea83c6"

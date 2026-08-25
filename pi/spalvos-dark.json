@@ -72,7 +72,7 @@
 		"syntaxFunction": "blue-300",
 		"syntaxVariable": "neutral-200",
 		"syntaxString": "emerald-500",
-		"syntaxNumber": "orange-300",
+		"syntaxNumber": "orange-500",
 		"syntaxType": "cyan-500",
 		"syntaxOperator": "fuchsia-300",
 		"syntaxPunctuation": "neutral-400",

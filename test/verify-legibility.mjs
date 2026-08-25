@@ -246,10 +246,10 @@ console.log("\n=== nvim (APCA) ===");
 // Lc >= 49 — APCA under-credits saturated hues, and pushing these to the
 // low-chroma 200 steps washes the theme out (tried; reverted). Emphasis
 // tokens (tags, self/this, symbol sigils) are sparse and take Lc >= 45.
-const NVIM_BODY = ["number", "comment", "accent", "variable"];
+const NVIM_BODY = ["comment", "accent", "variable"];
 // string/property ride the chroma crest (500 step) in dark — max canon
 // saturation at Lc ~50-54, deliberately traded down from the 60 floor.
-const NVIM_ACCENT = ["fn", "keyword", "type", "param", "string", "property"];
+const NVIM_ACCENT = ["fn", "keyword", "type", "param", "string", "property", "number"];
 const NVIM_EMPHASIS = ["tag", "var_special", "str_special"];
 const nvimSrc = readFileSync(join(root, "nvim/lua/spalvos.lua"), "utf8");
 for (const variant of ["light", "dark"]) {
