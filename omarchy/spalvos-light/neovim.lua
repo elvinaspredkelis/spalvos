@@ -96,7 +96,7 @@ local M = (function()
       -- Syntax accents
       accent      = "#087075", -- cyan-700: focus, links, builtins, info
       property    = "#087075", -- cyan-700: property, field, attribute (== accent; cyan-600 sat at 3.5:1)
-      number      = "#087075", -- number + string.regex (own slot: dark splits it)
+      number      = "#c4660d", -- orange-600: digits leave the teal family (was == accent/property)
       fn          = "#3858e8", -- function names — the one true-blue slot
       keyword     = "#a70881",
       string      = "#107147",
@@ -146,7 +146,7 @@ local M = (function()
       -- Syntax accents
       accent      = "#42cbd2",
       property    = "#11bbc2",
-      number      = "#7ad8dd", -- stays on the deeper cyan so digits ≠ builtins
+      number      = "#fdb482", -- orange-300 peach: digits ≠ builtins ≠ properties (was 3rd cyan)
       fn          = "#82a1f7",
       keyword     = "#ea83c6",
       string      = "#15bb77",
@@ -155,7 +155,7 @@ local M = (function()
       variable    = "#d5d4d2",
       param       = "#f58991",
       var_special = "#f58991",
-      str_special = "#fdb482",
+      str_special = "#f58991",
       link        = "#7ad8dd",
       -- Status
       error       = "#eb5d6d",
