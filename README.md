@@ -5,6 +5,8 @@ lineage), dialed toward neutral — quiet, not cold. One set of OKLCH primitives
 drives a light web UI, a dark web UI, a terminal, an editor, and a desktop —
 no per-port hand-tweaking.
 
+Browse the palette live at [predkelis.com/spalvos](https://predkelis.com/spalvos).
+
 <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-5ec990"></a>
 <a href="https://github.com/elvinaspredkelis/spalvos/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/elvinaspredkelis/spalvos?color=5b7ef0"></a>
 
