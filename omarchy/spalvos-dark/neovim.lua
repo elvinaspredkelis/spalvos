@@ -475,9 +475,9 @@ local M = (function()
     local p = M.palettes[variant]
     local chip_fg = variant == "light" and "#fbfbfa" or "#0b0a09"
     local modes = variant == "light"
-        and { normal = "#087075", insert = "#13955e", visual = "#a70881",
+        and { normal = "#0d959b", insert = "#13955e", visual = "#a70881",
               replace = "#b41b3c", command = "#c4660d" }
-        or  { normal = "#42cbd2", insert = "#5ec990", visual = "#ea83c6",
+        or  { normal = "#7ad8dd", insert = "#5ec990", visual = "#ea83c6",
               replace = "#f58991", command = "#f99b56" }
     local function mode(color)
       return {
