@@ -510,7 +510,7 @@
             "color": "#ea83c6"
           },
           "label": {
-            "color": "#f5810f"
+            "color": "#f99b56"
           },
           "link_text": {
             "color": "#11bbc2"
@@ -576,10 +576,10 @@
             "font_weight": 700
           },
           "type": {
-            "color": "#f5810f"
+            "color": "#f99b56"
           },
           "type.builtin": {
-            "color": "#f5810f"
+            "color": "#f99b56"
           },
           "variable": {
             "color": "#d5d4d2"
