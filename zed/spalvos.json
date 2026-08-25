@@ -171,7 +171,7 @@
             "color": "#73716e"
           },
           "attribute": {
-            "color": "#087075"
+            "color": "#0d959b"
           },
           "boolean": {
             "color": "#13955e"
@@ -235,7 +235,7 @@
             "color": "#343331"
           },
           "property": {
-            "color": "#087075"
+            "color": "#0d959b"
           },
           "punctuation": {
             "color": "#73716e"
@@ -265,7 +265,7 @@
             "color": "#a70881"
           },
           "string.special.symbol": {
-            "color": "#954d0a"
+            "color": "#b41b3c"
           },
           "tag": {
             "color": "#b41b3c"
@@ -299,7 +299,7 @@
             "color": "#b41b3c"
           },
           "variable.special.instance": {
-            "color": "#087075"
+            "color": "#0d959b"
           }
         }
       }
