@@ -317,7 +317,7 @@ local M = (function()
       ["@parameter"]             = { fg = p.param },
       ["@variable.parameter"]    = { fg = p.param },
       ["@variable"]              = { fg = p.variable },
-      ["@variable.builtin"]      = { fg = p.variable },
+      ["@variable.builtin"]      = { fg = p.var_special },
       ["@variable.member"]       = { fg = p.property },
       ["@property"]              = { fg = p.property },
       ["@field"]                 = { fg = p.property },
