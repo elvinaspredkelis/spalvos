@@ -297,6 +297,9 @@
           },
           "variant": {
             "color": "#b41b3c"
+          },
+          "variable.special.instance": {
+            "color": "#087075"
           }
         }
       }
@@ -595,6 +598,9 @@
           },
           "variant": {
             "color": "#f58991"
+          },
+          "variable.special.instance": {
+            "color": "#11bbc2"
           }
         }
       }
