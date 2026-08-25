@@ -1,6 +1,7 @@
 #!/usr/bin/env bun
 /*
- * Verify LEGIBILITY in the TUI ports — the companion to verify-palette.mjs.
+ * Verify LEGIBILITY in the TUI and desktop ports — the companion to
+ * verify-palette.mjs.
  *
  * verify-palette.mjs owns the palette invariants (gamut, the key semantic
  * contrasts) and port PROVENANCE — that every hex in a port renders a canon
@@ -161,6 +162,107 @@ for (const variant of ["light", "dark"]) {
     if (checkContrast(`fish/${variant} ${n} band`, fg, "#" + v.bg, 4.5))
       ok(`fish/${variant}: ${n} band ${contrast(fg, "#" + v.bg).toFixed(2)}:1`);
   }
+}
+
+// =========================================================================
+// omarchy — v4 colors.toml, checked on the surface ladder it declares.
+// =========================================================================
+// Omarchy paints the foreground ladder and the chromatic slots across all
+// four declared surfaces (waybar, mako, walker all pull from this file), so
+// the check is the same cross-product idea as herdr: text inks owe AA on
+// every surface, chromatic/UI slots owe 3:1 on the primary background.
+console.log("\n=== omarchy ===");
+const OMARCHY_SURFACES = ["background", "dark_background", "darker_background", "lighter_background"];
+const OMARCHY_INK = ["foreground", "light_foreground", "bright_foreground"];
+const OMARCHY_UI = ["accent", "muted", "dark_foreground", "red", "yellow", "orange", "green", "cyan", "blue", "magenta"];
+
+for (const variant of ["light", "dark"]) {
+  const src = readFileSync(join(root, `omarchy/spalvos-${variant}/colors.toml`), "utf8");
+  const tok = {};
+  for (const m of src.matchAll(/^\s*(\w+)\s*=\s*"(#[0-9a-f]{6})"/gim)) tok[m[1]] = m[2].toLowerCase();
+
+  if (!/^\s*mode\s*=\s*"(light|dark)"/m.test(src)) fail(`omarchy/${variant}: missing v4 \`mode\` key`);
+  const expected = [...OMARCHY_SURFACES, ...OMARCHY_INK, ...OMARCHY_UI, "selection", "brown",
+    "bright_red", "bright_yellow", "bright_green", "bright_cyan", "bright_blue", "bright_magenta"];
+  const missing = expected.filter((t) => !(t in tok));
+  if (missing.length) { fail(`omarchy/${variant}: missing token(s) ${missing.join(", ")}`); continue; }
+
+  let worst = Infinity, worstLabel = "";
+  for (const t of OMARCHY_INK) {
+    for (const bed of OMARCHY_SURFACES) {
+      checkContrast(`omarchy/${variant} ${t} on ${bed}`, tok[t], tok[bed], 4.5);
+      const r = contrast(tok[t], tok[bed]);
+      if (r < worst) { worst = r; worstLabel = `${t}/${bed}`; }
+    }
+  }
+  ok(`omarchy/${variant}: ink >= 4.5:1 on all 4 surfaces (tightest ${worstLabel} ${worst.toFixed(2)}:1)`);
+
+  let uiWorst = Infinity, uiWorstLabel = "";
+  for (const t of OMARCHY_UI) {
+    for (const bed of OMARCHY_SURFACES) {
+      checkContrast(`omarchy/${variant} ${t} on ${bed}`, tok[t], tok[bed], 3);
+      const r = contrast(tok[t], tok[bed]);
+      if (r < uiWorst) { uiWorst = r; uiWorstLabel = `${t}/${bed}`; }
+    }
+  }
+  ok(`omarchy/${variant}: UI slots >= 3:1 on all 4 surfaces (tightest ${uiWorstLabel} ${uiWorst.toFixed(2)}:1)`);
+
+  // Selected text: Omarchy renders selection_foreground on the selection band,
+  // and its fallback for that key is bright_foreground.
+  if (checkContrast(`omarchy/${variant} bright_foreground on selection`, tok.bright_foreground, tok.selection, 4.5))
+    ok(`omarchy/${variant}: bright_foreground ${contrast(tok.bright_foreground, tok.selection).toFixed(2)}:1 on selection band`);
+
+  // The foreground ladder must be ordered dark_ < light_ < bright_ around fg.
+  const ladder = ["dark_foreground", "foreground", "bright_foreground"].map((t) => contrast(tok[t], tok.background));
+  if (ladder.some((r, i) => i && r <= ladder[i - 1]))
+    fail(`omarchy/${variant}: foreground ladder not monotonic: ${ladder.map((r) => r.toFixed(2)).join(" ")}`);
+  else ok(`omarchy/${variant}: foreground ladder rises ${ladder.map((r) => r.toFixed(2)).join(" < ")}`);
+}
+
+// =========================================================================
+// nvim — syntax ink under APCA, the perceptual algorithm WCAG 3 adopts.
+// =========================================================================
+// WCAG 2's ratio math flatters light-on-dark pairs (a dark theme "passes"
+// with keywords the eye reads as dim) and under-rates dark-on-light hue
+// inks. APCA Lc predicts real readability: >= 75 for body ink, >= 60 for
+// fluently-read colored tokens. Deliberately-faint roles (punctuation,
+// gutter, ghost text) are exempt — they are de-emphasis by design.
+const apcaY = (h) => {
+  const c = (i) => Math.pow(parseInt(h.slice(i, i + 2), 16) / 255, 2.4);
+  const y = 0.2126729 * c(1) + 0.7151522 * c(3) + 0.072175 * c(5);
+  return y < 0.022 ? y + Math.pow(0.022 - y, 1.414) : y;
+};
+const apcaLc = (txt, bg) => {
+  const yt = apcaY(txt), yb = apcaY(bg);
+  const s = yb > yt
+    ? (Math.pow(yb, 0.56) - Math.pow(yt, 0.57)) * 1.14
+    : (Math.pow(yb, 0.65) - Math.pow(yt, 0.62)) * 1.14;
+  return Math.abs(s) < 0.1 ? 0 : Math.abs((Math.abs(s) - 0.027) * 100);
+};
+
+console.log("\n=== nvim (APCA) ===");
+// Content tokens are read fluently (Lc >= 60, with 0.5 rounding tolerance);
+// emphasis tokens (tags, self/this, symbol sigils) are sparse accents and take
+// the APCA large/emphasis floor (Lc >= 45) instead.
+const NVIM_CONTENT = ["property", "number", "fn", "keyword", "string", "type",
+  "param", "comment", "accent", "variable"];
+const NVIM_EMPHASIS = ["tag", "var_special", "str_special"];
+const nvimSrc = readFileSync(join(root, "nvim/lua/spalvos.lua"), "utf8");
+for (const variant of ["light", "dark"]) {
+  const body = nvimSrc.split(`${variant} = {`)[1];
+  const tok = {};
+  for (const m of body.matchAll(/^\s*(\w+)\s*=\s*"(#[0-9a-f]{6})"/gim)) tok[m[1]] ??= m[2].toLowerCase();
+  const bg = tok.bg;
+  if (apcaLc(tok.fg, bg) < 75) fail(`nvim/${variant}: fg Lc ${apcaLc(tok.fg, bg).toFixed(1)} < 75`);
+  let worst = Infinity, worstLabel = "";
+  for (const [group, floor] of [[NVIM_CONTENT, 59.5], [NVIM_EMPHASIS, 45]]) {
+    for (const t of group) {
+      const r = apcaLc(tok[t], bg);
+      if (r < floor) fail(`nvim/${variant} ${t}: APCA Lc ${r.toFixed(1)} < ${floor}  (${tok[t]} on ${bg})`);
+      if (r < worst) { worst = r; worstLabel = t; }
+    }
+  }
+  ok(`nvim/${variant}: fg Lc ${apcaLc(tok.fg, bg).toFixed(1)}, content Lc >= 60 / emphasis >= 45 (tightest ${worstLabel} ${worst.toFixed(1)})`);
 }
 
 console.log(failures ? `\nFAIL — ${failures} problem(s)` : "\nPASS");
