@@ -165,8 +165,7 @@
         ],
         "syntax": {
           "comment": {
-            "color": "#73716e",
-            "font_style": "italic"
+            "color": "#73716e"
           },
           "comment.doc": {
             "color": "#73716e"
@@ -198,8 +197,7 @@
             "color": "#b41b3c"
           },
           "function": {
-            "color": "#3858e8",
-            "font_weight": 700
+            "color": "#3858e8"
           },
           "function.builtin": {
             "color": "#087075"
@@ -211,8 +209,7 @@
             "color": "#73716e"
           },
           "keyword": {
-            "color": "#a70881",
-            "font_style": "italic"
+            "color": "#a70881"
           },
           "label": {
             "color": "#954d0a"
@@ -466,8 +463,7 @@
         ],
         "syntax": {
           "comment": {
-            "color": "#b5b4b1",
-            "font_style": "italic"
+            "color": "#b5b4b1"
           },
           "comment.doc": {
             "color": "#b5b4b1"
@@ -499,8 +495,7 @@
             "color": "#f58991"
           },
           "function": {
-            "color": "#82a1f7",
-            "font_weight": 700
+            "color": "#82a1f7"
           },
           "function.builtin": {
             "color": "#42cbd2"
@@ -512,8 +507,7 @@
             "color": "#908f8c"
           },
           "keyword": {
-            "color": "#ea83c6",
-            "font_style": "italic"
+            "color": "#ea83c6"
           },
           "label": {
             "color": "#f99b56"
