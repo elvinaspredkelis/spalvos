@@ -139,7 +139,7 @@ M.palettes = {
     variable    = "#d5d4d2",
     param       = "#f58991",
     var_special = "#f58991",
-    str_special = "#f58991",
+    str_special = "#f5810f",
     link        = "#7ad8dd",
     -- Status
     error       = "#eb5d6d",
