@@ -2,22 +2,26 @@
 
 **One palette. Every surface.**
 
-A transportable color system. Warm ink on warm paper (Flexoki / Helply
-lineage), dialed toward neutral — quiet, not cold. One set of OKLCH primitives
-drives a light web UI, a dark web UI, a terminal, an editor, and a desktop —
-no per-port hand-tweaking.
-
-Browse the palette live at [predkelis.com/spalvos](https://predkelis.com/spalvos).
-
-- **One source of truth** — every port derives from the OKLCH primitives in `spalvos.css`; fix a color once, reconvert everywhere.
-- **Verified accessibility** — WCAG contrast and APCA legibility asserted by test suites and enforced in CI, not eyeballed.
-- **A true light + dark pair** — the darkest surface and the darkest ink are the same primitive, so dark mode can never sink below its own text.
-- **Every surface checked** — TUI inks are tested against every background they can land on, not just the default one.
-- **Ports that agree** — desktop, terminal, editor, shell, and web render the same primitives; `bin/spalvos-install` keeps installed copies in sync.
-- **Quiet by design** — warm ink on warm paper, Flexoki lineage, dialed toward neutral.
+A transportable color system. Warm ink on warm paper, dialed toward neutral. One set of OKLCH primitives
+drives ports for every surface.
 
 <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-5ec990"></a>
 <a href="https://github.com/elvinaspredkelis/spalvos/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/elvinaspredkelis/spalvos?color=5b7ef0"></a>
+
+Browse the palette live at [predkelis.com/spalvos](https://predkelis.com/spalvos).
+
+---
+
+### Features
+
+- **One source of truth** — every port derives from the OKLCH primitives.
+- **Verified accessibility** — WCAG contrast and APCA legibility asserted by test suites and enforced in CI, not eyeballed.
+- **A true light + dark pair** — the darkest surface and the darkest ink are the same primitive, so dark mode can never sink below its own text.
+- **Every surface checked** — TUI inks are tested against every background they can land on, not just the default one.
+- **Ports that agree** — desktop, terminal, editor, shell, and web render the same primitives.
+- **Quiet by design** — warm ink on warm paper,dialed toward neutral.
+
+---
 
 ### Omarchy
 
