@@ -33,28 +33,17 @@ live there as `@theme` custom properties, and every other port is derived from
 it. If a colour looks off somewhere, fix the primitive and reconvert; never
 hand-tweak hexes in a port.
 
-- **Tailwind / CSS** — `spalvos.css` itself, plus two packaging variants in
-  `tailwind/` (namespaced and overridden).
-- **Zed** — `zed/spalvos.json`, light and dark editor themes with a full
-  syntax map.
-- **Neovim** — `nvim/`, both `spalvos-light` and `spalvos-dark` colorschemes
-  in one `spalvos.lua`, mirroring the Zed syntax map.
-- **Ghostty** — `ghostty/`, light and dark terminal themes.
-- **Herdr** — `herdr/`, `[theme.custom]` blocks for the terminal workspace
-  manager. It pins its own hexes instead of reading the ANSI palette — the
-  port's README explains why.
-- **Fish** — `fish/`, `.theme` files with a `conf.d` loader that follows the
-  desktop mode, plus fixes for the Tide prompt.
-- **Omarchy** — `omarchy/`, full desktop themes for light and dark. More
-  below.
+- [Tailwind / CSS](spalvos.css) — packaging variants in [`tailwind/`](tailwind)
+- [Zed](zed/spalvos.json)
+- [Neovim](nvim)
+- [Ghostty](ghostty)
+- [Herdr](herdr)
+- [Fish](fish)
+- [Omarchy](omarchy)
 
-## Omarchy
+## Previews
 
-`omarchy/` ships `spalvos-light` and `spalvos-dark` as complete Omarchy
-desktop themes: `colors.toml`, Hyprland config, Neovim colorscheme, icons,
-and backgrounds.
-
-### Preview
+### Omarchy
 
 | Light | Dark |
 |-------|------|
