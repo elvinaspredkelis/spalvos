@@ -125,3 +125,7 @@ suit one of them breaks all the rest.
 ## License
 
 MIT — see [`LICENSE`](LICENSE).
+
+---
+
+<sub>*Spalvos* is Lithuanian for "colors."</sub>
