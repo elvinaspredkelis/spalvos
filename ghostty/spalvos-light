@@ -38,7 +38,8 @@ palette = 0=#41403d
 palette = 1=#b41b3c
 palette = 2=#13955e
 palette = 3=#954d0a
-palette = 4=#2e49bd   # blue-600
+# blue-600
+palette = 4=#2e49bd
 palette = 5=#a70881
 palette = 6=#0d959b
 palette = 7=#f2f2f1
@@ -46,7 +47,8 @@ palette = 8=#73716e
 palette = 9=#de1c4a
 palette = 10=#13955e
 palette = 11=#c4660d
-palette = 12=#3858e8  # blue-500
+# blue-500
+palette = 12=#3858e8
 palette = 13=#cd059e
 palette = 14=#11bbc2
 palette = 15=#ffffff

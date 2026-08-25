@@ -36,12 +36,18 @@ palette = 5=#de54b3
 palette = 6=#42cbd2
 palette = 7=#b5b4b1
 palette = 8=#41403d
-palette = 9=#f58991   # rose-300
-palette = 10=#89d7aa  # emerald-300
-palette = 11=#fdb482  # amber-300
-palette = 12=#82a1f7  # blue-300
-palette = 13=#ea83c6  # magenta-300
-palette = 14=#7ad8dd  # cyan-300
+# rose-300
+palette = 9=#f58991
+# emerald-300
+palette = 10=#89d7aa
+# amber-300
+palette = 11=#fdb482
+# blue-300
+palette = 12=#82a1f7
+# magenta-300
+palette = 13=#ea83c6
+# cyan-300
+palette = 14=#7ad8dd
 palette = 15=#d5d4d2
 
 # --- Extras ---
