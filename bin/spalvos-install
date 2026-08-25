@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+# Install (or refresh) the spalvos ports into the locations their apps read.
+#
+# The repo is the source of truth; apps read their own copies. Those copies
+# drift the moment the palette changes upstream — this script is the one
+# place that knows every destination.
+#
+# Usage:
+#   spalvos-install              # install every port whose app is present
+#   spalvos-install pi omarchy   # only these ports
+#   spalvos-install --list       # show ports, destinations, and drift
+#
+# A port is skipped (not an error) when its app's config directory does not
+# exist. herdr is not copied here: its config is a single-table splice owned
+# by spalvos-mode-apply, which this script calls when herdr is requested.
+#
+# Kept bash-3.2 compatible (no associative arrays) so it runs on stock macOS.
+set -euo pipefail
+
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ORDER="omarchy pi ghostty fish zed herdr"
+
+# port_spec <port> -> "detect-dir|dest-dir|source ..." (sources relative to $REPO)
+port_spec() {
+  case "$1" in
+  omarchy) echo "$HOME/.config/omarchy|$HOME/.config/omarchy/themes|omarchy/spalvos-light omarchy/spalvos-dark" ;;
+  pi)      echo "$HOME/.pi/agent|$HOME/.pi/agent/themes|pi/spalvos-light.json pi/spalvos-dark.json" ;;
+  ghostty) echo "$HOME/.config/ghostty|$HOME/.config/ghostty/themes|ghostty/spalvos-light ghostty/spalvos-dark" ;;
+  fish)    echo "$HOME/.config/fish|$HOME/.config/fish/themes|fish/spalvos-light.theme fish/spalvos-dark.theme" ;;
+  zed)     echo "$HOME/.config/zed|$HOME/.config/zed/themes|zed/spalvos.json" ;;
+  herdr)   echo "$HOME/.config/herdr||" ;;
+  *)       return 1 ;;
+  esac
+}
+
+drift() { # 0 = in sync, 1 = differs/missing
+  [[ -e "$2" ]] && diff -rq "$1" "$2" >/dev/null 2>&1
+}
+
+list_ports() {
+  local port detect dest sources src state
+  for port in $ORDER; do
+    IFS='|' read -r detect dest sources <<<"$(port_spec "$port")"
+    if [[ ! -d "$detect" ]]; then
+      printf '%-8s absent (%s not found)\n' "$port" "$detect"
+      continue
+    fi
+    if [[ "$port" == herdr ]]; then
+      printf '%-8s managed by spalvos-mode-apply\n' "$port"
+      continue
+    fi
+    state="in sync"
+    for src in $sources; do
+      drift "$REPO/$src" "$dest/$(basename "$src")" || { state="DRIFTED"; break; }
+    done
+    printf '%-8s %-9s -> %s\n' "$port" "$state" "$dest"
+  done
+}
+
+install_port() {
+  local port="$1" detect dest sources src current
+  IFS='|' read -r detect dest sources <<<"$(port_spec "$port")"
+  if [[ ! -d "$detect" ]]; then
+    echo "spalvos-install: $port skipped ($detect not found)"
+    return 0
+  fi
+  if [[ "$port" == herdr ]]; then
+    "$REPO/bin/spalvos-mode-apply"
+    return 0
+  fi
+  mkdir -p "$dest"
+  for src in $sources; do
+    cp -R "$REPO/$src" "$dest/"
+  done
+  echo "spalvos-install: $port -> $dest"
+
+  # Omarchy renders generated configs from the theme at set-time, so a copy
+  # alone leaves the desktop stale — re-apply if a spalvos theme is active.
+  if [[ "$port" == omarchy ]] && command -v omarchy-theme-set >/dev/null 2>&1; then
+    current="$(tr '[:upper:] ' '[:lower:]-' <"$HOME/.local/state/omarchy/current/theme.name" 2>/dev/null || true)"
+    if [[ "$current" == spalvos-* ]]; then
+      omarchy-theme-set "$current" && echo "spalvos-install: re-applied $current"
+    fi
+  fi
+}
+
+if [[ "${1:-}" == "--list" ]]; then
+  list_ports
+  exit 0
+fi
+
+if [[ $# -gt 0 ]]; then
+  for t in "$@"; do
+    port_spec "$t" >/dev/null || { echo "spalvos-install: unknown port '$t' (have: $ORDER)" >&2; exit 1; }
+  done
+  targets="$*"
+else
+  targets="$ORDER"
+fi
+
+for t in $targets; do
+  install_port "$t"
+done
