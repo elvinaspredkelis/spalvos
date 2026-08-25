@@ -26,7 +26,8 @@
 		"blue-300": "#82a1f7",
 		"emerald-500": "#15bb77",
 		"cyan-500": "#11bbc2",
-		"orange-500": "#f5810f"
+		"orange-500": "#f5810f",
+		"raised": "#1f1f1f"
 	},
 	"colors": {
 		"accent": "cyan-400",
@@ -49,9 +50,9 @@
 		"customMessageBg": "neutral-900",
 		"customMessageText": "",
 		"customMessageLabel": "cyan-400",
-		"toolPendingBg": "neutral-950",
-		"toolSuccessBg": "neutral-900",
-		"toolErrorBg": "neutral-900",
+		"toolPendingBg": "raised",
+		"toolSuccessBg": "neutral-950",
+		"toolErrorBg": "neutral-950",
 		"toolTitle": "cyan-400",
 		"toolOutput": "",
 		"mdHeading": "orange-400",
