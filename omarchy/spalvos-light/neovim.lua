@@ -105,7 +105,7 @@ local M = (function()
       variable    = "#565552",
       param       = "#8c182f",
       var_special = "#de1c4a",
-      str_special = "#b41b3c",
+      str_special = "#c4660d",
       link        = "#087075",
       -- Status
       error       = "#b41b3c",
