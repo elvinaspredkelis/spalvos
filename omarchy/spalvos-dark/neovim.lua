@@ -95,7 +95,7 @@ local M = (function()
       invisible   = "#d5d4d2", -- editor.invisible, active wrap guide
       -- Syntax accents
       accent      = "#087075", -- cyan-700: focus, links, builtins, info
-      property    = "#0d959b", -- cyan-600: the herdr teal; APCA Lc 60.9, distinct from the 700 accent
+      property    = "#087075", -- cyan-700: property, field, attribute (== accent; cyan-600 sat at 3.5:1)
       number      = "#c4660d", -- orange-600: digits leave the teal family (was == accent/property)
       fn          = "#3858e8", -- function names — the one true-blue slot
       keyword     = "#a70881",
@@ -105,7 +105,7 @@ local M = (function()
       variable    = "#565552",
       param       = "#8c182f",
       var_special = "#de1c4a",
-      str_special = "#b41b3c",
+      str_special = "#954d0a",
       link        = "#087075",
       -- Status
       error       = "#b41b3c",
