@@ -99,7 +99,7 @@ local M = (function()
       number      = "#c4660d", -- orange-600: digits leave the teal family (was == accent/property)
       fn          = "#3858e8", -- function names — the one true-blue slot
       keyword     = "#a70881",
-      string      = "#107147",
+      string      = "#13955e",
       type        = "#954d0a", -- type, namespace, label
       tag         = "#b41b3c", -- tag, constructor, enum, variant
       variable    = "#565552",

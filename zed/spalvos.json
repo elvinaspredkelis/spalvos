@@ -174,10 +174,10 @@
             "color": "#087075"
           },
           "boolean": {
-            "color": "#107147"
+            "color": "#13955e"
           },
           "constant": {
-            "color": "#107147"
+            "color": "#13955e"
           },
           "constructor": {
             "color": "#b41b3c"
@@ -253,7 +253,7 @@
             "color": "#a70881"
           },
           "string": {
-            "color": "#107147"
+            "color": "#13955e"
           },
           "string.escape": {
             "color": "#a70881"
@@ -271,7 +271,7 @@
             "color": "#b41b3c"
           },
           "text.literal": {
-            "color": "#107147"
+            "color": "#13955e"
           },
           "title": {
             "color": "#343331",
