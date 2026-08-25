@@ -563,7 +563,7 @@
             "color": "#ea83c6"
           },
           "string.special.symbol": {
-            "color": "#f5810f"
+            "color": "#f58991"
           },
           "tag": {
             "color": "#f58991"
@@ -591,7 +591,7 @@
             "color": "#f58991"
           },
           "variable.special": {
-            "color": "#f58991"
+            "color": "#f5810f"
           },
           "variant": {
             "color": "#f58991"
