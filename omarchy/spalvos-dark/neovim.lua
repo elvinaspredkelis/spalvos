@@ -145,12 +145,12 @@ local M = (function()
       invisible   = "#41403d",
       -- Syntax accents
       accent      = "#42cbd2",
-      property    = "#42cbd2",
+      property    = "#11bbc2",
       number      = "#7ad8dd", -- stays on the deeper cyan so digits ≠ builtins
       fn          = "#82a1f7",
       keyword     = "#ea83c6",
-      string      = "#5ec990",
-      type        = "#f99b56",
+      string      = "#15bb77",
+      type        = "#f5810f",
       tag         = "#f58991",
       variable    = "#d5d4d2",
       param       = "#f58991",

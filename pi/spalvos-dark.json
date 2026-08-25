@@ -23,7 +23,10 @@
 		"fuchsia-200": "#f4aed9",
 		"blue-200": "#abc2fb",
 		"orange-300": "#fdb482",
-		"blue-300": "#82a1f7"
+		"blue-300": "#82a1f7",
+		"emerald-500": "#15bb77",
+		"cyan-500": "#11bbc2",
+		"orange-500": "#f5810f"
 	},
 	"colors": {
 		"accent": "cyan-400",
@@ -68,9 +71,9 @@
 		"syntaxKeyword": "fuchsia-300",
 		"syntaxFunction": "blue-300",
 		"syntaxVariable": "neutral-200",
-		"syntaxString": "emerald-400",
-		"syntaxNumber": "orange-300",
-		"syntaxType": "cyan-300",
+		"syntaxString": "emerald-500",
+		"syntaxNumber": "orange-500",
+		"syntaxType": "cyan-500",
 		"syntaxOperator": "fuchsia-300",
 		"syntaxPunctuation": "neutral-400",
 		"thinkingOff": "neutral-500",

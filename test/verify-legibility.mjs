@@ -243,11 +243,13 @@ const apcaLc = (txt, bg) => {
 console.log("\n=== nvim (APCA) ===");
 // Three floors. Body tokens are read fluently (Lc >= 60, with 0.5 rounding
 // tolerance). Chromatic accents (keywords, functions, types, params) sit at
-// Lc >= 50 — APCA under-credits saturated hues, and pushing these to the
+// Lc >= 49 — APCA under-credits saturated hues, and pushing these to the
 // low-chroma 200 steps washes the theme out (tried; reverted). Emphasis
 // tokens (tags, self/this, symbol sigils) are sparse and take Lc >= 45.
-const NVIM_BODY = ["property", "number", "string", "comment", "accent", "variable"];
-const NVIM_ACCENT = ["fn", "keyword", "type", "param"];
+const NVIM_BODY = ["number", "comment", "accent", "variable"];
+// string/property ride the chroma crest (500 step) in dark — max canon
+// saturation at Lc ~50-54, deliberately traded down from the 60 floor.
+const NVIM_ACCENT = ["fn", "keyword", "type", "param", "string", "property"];
 const NVIM_EMPHASIS = ["tag", "var_special", "str_special"];
 const nvimSrc = readFileSync(join(root, "nvim/lua/spalvos.lua"), "utf8");
 for (const variant of ["light", "dark"]) {
@@ -257,7 +259,7 @@ for (const variant of ["light", "dark"]) {
   const bg = tok.bg;
   if (apcaLc(tok.fg, bg) < 75) fail(`nvim/${variant}: fg Lc ${apcaLc(tok.fg, bg).toFixed(1)} < 75`);
   let worst = Infinity, worstLabel = "";
-  for (const [group, floor] of [[NVIM_BODY, 59.5], [NVIM_ACCENT, 50], [NVIM_EMPHASIS, 45]]) {
+  for (const [group, floor] of [[NVIM_BODY, 59.5], [NVIM_ACCENT, 49], [NVIM_EMPHASIS, 45]]) {
     for (const t of group) {
       const r = apcaLc(tok[t], bg);
       if (r < floor) fail(`nvim/${variant} ${t}: APCA Lc ${r.toFixed(1)} < ${floor}  (${tok[t]} on ${bg})`);

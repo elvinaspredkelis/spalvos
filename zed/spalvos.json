@@ -469,13 +469,13 @@
             "color": "#b5b4b1"
           },
           "attribute": {
-            "color": "#42cbd2"
+            "color": "#11bbc2"
           },
           "boolean": {
-            "color": "#5ec990"
+            "color": "#15bb77"
           },
           "constant": {
-            "color": "#5ec990"
+            "color": "#15bb77"
           },
           "constructor": {
             "color": "#f58991"
@@ -498,10 +498,10 @@
             "color": "#82a1f7"
           },
           "function.builtin": {
-            "color": "#42cbd2"
+            "color": "#11bbc2"
           },
           "function.special": {
-            "color": "#42cbd2"
+            "color": "#11bbc2"
           },
           "hint": {
             "color": "#908f8c"
@@ -510,10 +510,10 @@
             "color": "#ea83c6"
           },
           "label": {
-            "color": "#f99b56"
+            "color": "#f5810f"
           },
           "link_text": {
-            "color": "#42cbd2"
+            "color": "#11bbc2"
           },
           "link_uri": {
             "color": "#7ad8dd",
@@ -533,7 +533,7 @@
             "color": "#ecebe9"
           },
           "property": {
-            "color": "#42cbd2"
+            "color": "#11bbc2"
           },
           "punctuation": {
             "color": "#908f8c"
@@ -551,7 +551,7 @@
             "color": "#ea83c6"
           },
           "string": {
-            "color": "#5ec990"
+            "color": "#15bb77"
           },
           "string.escape": {
             "color": "#ea83c6"
@@ -569,17 +569,17 @@
             "color": "#f58991"
           },
           "text.literal": {
-            "color": "#5ec990"
+            "color": "#15bb77"
           },
           "title": {
             "color": "#ecebe9",
             "font_weight": 700
           },
           "type": {
-            "color": "#f99b56"
+            "color": "#f5810f"
           },
           "type.builtin": {
-            "color": "#f99b56"
+            "color": "#f5810f"
           },
           "variable": {
             "color": "#d5d4d2"
