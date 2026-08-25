@@ -10,11 +10,18 @@ Browse the palette live at [predkelis.com/spalvos](https://predkelis.com/spalvos
 <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-5ec990"></a>
 <a href="https://github.com/elvinaspredkelis/spalvos/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/elvinaspredkelis/spalvos?color=5b7ef0"></a>
 
+### Omarchy
+
 | Light | Dark |
 |-------|------|
 | ![Spalvos light desktop](omarchy/spalvos-light/preview.png) | ![Spalvos dark desktop](omarchy/spalvos-dark/preview.png) |
-| ![Spalvos light in Neovim](nvim/preview-light.png) | ![Spalvos dark in Neovim](nvim/preview-dark.png) |
 | ![Spalvos light lock screen](omarchy/spalvos-light/preview-unlock.png) | ![Spalvos dark lock screen](omarchy/spalvos-dark/preview-unlock.png) |
+
+### Neovim
+
+| Light | Dark |
+|-------|------|
+| ![Spalvos light in Neovim](nvim/preview-light.png) | ![Spalvos dark in Neovim](nvim/preview-dark.png) |
 
 ## Quickstart
 
