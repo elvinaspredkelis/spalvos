@@ -73,9 +73,9 @@ const checks = [
   ["muted-fg on paper-base", ["neutral-600", "paper-base"], 4.5],
   ["primary-strong on paper-base", ["blue-700", "paper-base"], 4.5],
   ["success-strong on paper-base", ["emerald-700", "paper-base"], 4.5],
-  ["warning-strong on paper-base", ["amber-700", "paper-base"], 4.5],
-  ["critical-strong on paper-base", ["rose-700", "paper-base"], 4.5],
-  ["magenta-500 vs white (fill)", ["magenta-500", "neutral-0"], 4.5],
+  ["warning-strong on paper-base", ["orange-700", "paper-base"], 4.5],
+  ["critical-strong on paper-base", ["raspberry-700", "paper-base"], 4.5],
+  ["fuchsia-500 vs white (fill)", ["fuchsia-500", "neutral-0"], 4.5],
   ["white on blue-500 (primary fill)", ["neutral-0", "blue-500"], 4.5],
 ];
 for (const [label, [fg, bg], target] of checks) {

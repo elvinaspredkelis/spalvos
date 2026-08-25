@@ -2,9 +2,8 @@
 # Palette lifted from ../../ghostty/spalvos-light: the chromatic slots
 # mirror the ANSI palette (normals = the 600/700 inks, brights = the
 # 500/600 lifts). Accent = deep teal (spalvos "info/focus" tone);
-# cursor cyan folded into bright_cyan. Spalvos has no orange/brown
-# ramps, so those slots reuse amber steps (orange = amber-600,
-# brown = amber-700). Every hex is a canon primitive.
+# cursor cyan folded into bright_cyan. The orange slot takes orange-600 and
+# brown takes orange-700 (spalvos has no brown ramp). Every hex is a canon primitive.
 
 mode = "light"
 

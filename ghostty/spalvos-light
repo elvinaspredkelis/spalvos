@@ -22,7 +22,7 @@ foreground = #343331
 # neutral-500 (comment tone). White slots stay on the PAPER
 # SURFACES: white = paper-sunken, bright white = paper-raised —
 # white-as-text is a subtle inset tone by design.
-# Accents: normals at L≈48–50 (rose/magenta 600, amber 700), brights
+# Accents: normals at L≈48–50 (raspberry/fuchsia 600, orange 700), brights
 # one step lighter so they stay >= ~3.3:1 on paper. EXCEPTION — green:
 # emerald-700 (L49) sat only ~17 L above the neutral-800 ink and
 # read as dark gray in log streams, so green normal == bright ==

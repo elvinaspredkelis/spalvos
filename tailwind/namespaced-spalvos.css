@@ -44,47 +44,47 @@
   --color-spalvos-emerald-900: oklch(0.2733 0.0569 158);
   --color-spalvos-emerald-950: oklch(0.22 0.044 158);
 
-  --color-spalvos-amber-50: oklch(0.96 0.023 55);
-  --color-spalvos-amber-100: oklch(0.9333 0.0377 55);
-  --color-spalvos-amber-150: oklch(0.9067 0.0547 55);
-  --color-spalvos-amber-200: oklch(0.88 0.0737 55);
-  --color-spalvos-amber-300: oklch(0.8267 0.1074 55);
-  --color-spalvos-amber-400: oklch(0.7733 0.1412 55);
-  --color-spalvos-amber-500: oklch(0.72 0.175 55);
-  --color-spalvos-amber-600: oklch(0.6089 0.147 55);
-  --color-spalvos-amber-700: oklch(0.4978 0.119 55);
-  --color-spalvos-amber-800: oklch(0.3867 0.091 55);
-  --color-spalvos-amber-850: oklch(0.3311 0.077 55);
-  --color-spalvos-amber-900: oklch(0.2756 0.063 55);
-  --color-spalvos-amber-950: oklch(0.22 0.049 55);
+  --color-spalvos-orange-50: oklch(0.96 0.023 55);
+  --color-spalvos-orange-100: oklch(0.9333 0.0377 55);
+  --color-spalvos-orange-150: oklch(0.9067 0.0547 55);
+  --color-spalvos-orange-200: oklch(0.88 0.0737 55);
+  --color-spalvos-orange-300: oklch(0.8267 0.1074 55);
+  --color-spalvos-orange-400: oklch(0.7733 0.1412 55);
+  --color-spalvos-orange-500: oklch(0.72 0.175 55);
+  --color-spalvos-orange-600: oklch(0.6089 0.147 55);
+  --color-spalvos-orange-700: oklch(0.4978 0.119 55);
+  --color-spalvos-orange-800: oklch(0.3867 0.091 55);
+  --color-spalvos-orange-850: oklch(0.3311 0.077 55);
+  --color-spalvos-orange-900: oklch(0.2756 0.063 55);
+  --color-spalvos-orange-950: oklch(0.22 0.049 55);
 
-  --color-spalvos-rose-50: oklch(0.96 0.019 16.44);
-  --color-spalvos-rose-100: oklch(0.9178 0.0413 16.44);
-  --color-spalvos-rose-150: oklch(0.8756 0.0637 16.44);
-  --color-spalvos-rose-200: oklch(0.8333 0.086 16.44);
-  --color-spalvos-rose-300: oklch(0.7489 0.1307 16.44);
-  --color-spalvos-rose-400: oklch(0.6644 0.1753 16.44);
-  --color-spalvos-rose-500: oklch(0.58 0.22 16.44);
-  --color-spalvos-rose-600: oklch(0.5 0.1847 16.44);
-  --color-spalvos-rose-700: oklch(0.42 0.1493 16.44);
-  --color-spalvos-rose-800: oklch(0.34 0.114 16.44);
-  --color-spalvos-rose-850: oklch(0.3 0.0963 16.44);
-  --color-spalvos-rose-900: oklch(0.26 0.0787 16.44);
-  --color-spalvos-rose-950: oklch(0.22 0.061 16.44);
+  --color-spalvos-raspberry-50: oklch(0.96 0.019 16.44);
+  --color-spalvos-raspberry-100: oklch(0.9178 0.0413 16.44);
+  --color-spalvos-raspberry-150: oklch(0.8756 0.0637 16.44);
+  --color-spalvos-raspberry-200: oklch(0.8333 0.086 16.44);
+  --color-spalvos-raspberry-300: oklch(0.7489 0.1307 16.44);
+  --color-spalvos-raspberry-400: oklch(0.6644 0.1753 16.44);
+  --color-spalvos-raspberry-500: oklch(0.58 0.22 16.44);
+  --color-spalvos-raspberry-600: oklch(0.5 0.1847 16.44);
+  --color-spalvos-raspberry-700: oklch(0.42 0.1493 16.44);
+  --color-spalvos-raspberry-800: oklch(0.34 0.114 16.44);
+  --color-spalvos-raspberry-850: oklch(0.3 0.0963 16.44);
+  --color-spalvos-raspberry-900: oklch(0.26 0.0787 16.44);
+  --color-spalvos-raspberry-950: oklch(0.22 0.061 16.44);
 
-  --color-spalvos-magenta-50: oklch(0.96 0.022 342);
-  --color-spalvos-magenta-100: oklch(0.9167 0.0473 342);
-  --color-spalvos-magenta-150: oklch(0.8733 0.0727 342);
-  --color-spalvos-magenta-200: oklch(0.83 0.098 342);
-  --color-spalvos-magenta-300: oklch(0.7433 0.1487 342);
-  --color-spalvos-magenta-400: oklch(0.6567 0.1993 342);
-  --color-spalvos-magenta-500: oklch(0.57 0.2437 342);
-  --color-spalvos-magenta-600: oklch(0.4922 0.2082 342);
-  --color-spalvos-magenta-700: oklch(0.4144 0.1664 342);
-  --color-spalvos-magenta-800: oklch(0.3367 0.1247 342);
-  --color-spalvos-magenta-850: oklch(0.2978 0.1038 342);
-  --color-spalvos-magenta-900: oklch(0.2589 0.0829 342);
-  --color-spalvos-magenta-950: oklch(0.22 0.062 342);
+  --color-spalvos-fuchsia-50: oklch(0.96 0.022 342);
+  --color-spalvos-fuchsia-100: oklch(0.9167 0.0473 342);
+  --color-spalvos-fuchsia-150: oklch(0.8733 0.0727 342);
+  --color-spalvos-fuchsia-200: oklch(0.83 0.098 342);
+  --color-spalvos-fuchsia-300: oklch(0.7433 0.1487 342);
+  --color-spalvos-fuchsia-400: oklch(0.6567 0.1993 342);
+  --color-spalvos-fuchsia-500: oklch(0.57 0.2437 342);
+  --color-spalvos-fuchsia-600: oklch(0.4922 0.2082 342);
+  --color-spalvos-fuchsia-700: oklch(0.4144 0.1664 342);
+  --color-spalvos-fuchsia-800: oklch(0.3367 0.1247 342);
+  --color-spalvos-fuchsia-850: oklch(0.2978 0.1038 342);
+  --color-spalvos-fuchsia-900: oklch(0.2589 0.0829 342);
+  --color-spalvos-fuchsia-950: oklch(0.22 0.062 342);
 
   --color-spalvos-neutral-0: oklch(0.99 0.0015 90);
   --color-spalvos-neutral-50: oklch(0.97 0.002 90);
@@ -128,13 +128,13 @@
   --color-spalvos-success-fg: var(--color-spalvos-neutral-1000);
   --color-spalvos-success-strong: var(--color-spalvos-emerald-700);
 
-  --color-spalvos-warning: var(--color-spalvos-amber-500);
+  --color-spalvos-warning: var(--color-spalvos-orange-500);
   --color-spalvos-warning-fg: var(--color-spalvos-neutral-1000);
-  --color-spalvos-warning-strong: var(--color-spalvos-amber-700);
+  --color-spalvos-warning-strong: var(--color-spalvos-orange-700);
 
-  --color-spalvos-critical: var(--color-spalvos-rose-500);
+  --color-spalvos-critical: var(--color-spalvos-raspberry-500);
   --color-spalvos-critical-fg: var(--color-spalvos-neutral-0);
-  --color-spalvos-critical-strong: var(--color-spalvos-rose-700);
+  --color-spalvos-critical-strong: var(--color-spalvos-raspberry-700);
 }
 
 :root[data-contrast="high"] {
@@ -186,6 +186,6 @@
 
   --color-spalvos-primary-strong: var(--color-spalvos-blue-400);
   --color-spalvos-success-strong: var(--color-spalvos-emerald-400);
-  --color-spalvos-warning-strong: var(--color-spalvos-amber-400);
-  --color-spalvos-critical-strong: var(--color-spalvos-rose-400);
+  --color-spalvos-warning-strong: var(--color-spalvos-orange-400);
+  --color-spalvos-critical-strong: var(--color-spalvos-raspberry-400);
 }

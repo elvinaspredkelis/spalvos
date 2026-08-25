@@ -49,7 +49,7 @@ the primitive and reconvert — never hand-tweak hexes downstream.
 
 ## The core
 
-Six accent ramps (rose, amber, emerald, cyan, blue, magenta) plus one neutral
+Six accent ramps (raspberry, orange, emerald, cyan, blue, fuchsia) plus one neutral
 spine. Themed tokens (`background`, `foreground`, `border`, the semantic
 `*-strong` accents, …) reference those primitives; a "theme" is just which
 value wins. Light is the default, `[data-theme="dark"]` repoints, and the

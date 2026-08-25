@@ -84,21 +84,21 @@ accent = "#087075"      # cyan-700
 
 # --- Status hues ----------------------------------------------------------
 # Light duty runs one step darker than the ghostty palette because these sit
-# on chrome rather than paper. yellow and peach share amber 700 (see peach), blue takes
+# on chrome rather than paper. yellow and peach share orange 700 (see peach), blue takes
 # blue-600, exactly as ../nvim/lua/spalvos.lua splits `type` from
 # `str_special`.
-red = "#b41b3c"         # rose-600
+red = "#b41b3c"         # raspberry-600
 green = "#107147"       # emerald-700
-yellow = "#954d0a"      # amber-700
+yellow = "#954d0a"      # orange-700
 blue = "#2e49bd"        # blue-600
-mauve = "#a70881"       # magenta-600
+mauve = "#a70881"       # fuchsia-600
 teal = "#087075"        # cyan-700 — collapses onto accent; cyan-600 is the
                         # only step that reads as unambiguously teal on paper
                         # and it misses 3:1 on the selected-row band.
                         # ../ghostty/spalvos-light collapses slots the same way.
-peach = "#954d0a"      # amber-700 — collapses onto yellow, mirroring the
-                        # teal==accent collapse above: amber-600 (L61) was a
+peach = "#954d0a"      # orange-700 — collapses onto yellow, mirroring the
+                        # teal==accent collapse above: orange-600 (L61) was a
                         # ~10-point L outlier against every other status hue on
-                        # this bed (~L49-50), and amber-700 still clears 5.1:1
+                        # this bed (~L49-50), and orange-700 still clears 5.1:1
                         # on the selected-row band. Roles stay distinguishable
                         # by context, as teal does.

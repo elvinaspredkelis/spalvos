@@ -4,8 +4,7 @@
 # "info/focus" tone). Surface ladder: base = paper-dark-base #171717,
 # lighter = paper-dark-raised #1f1f1f; nothing sits between the base
 # and the neutral-1000 true-black floor, so dark_background and
-# darker_background both take the floor. orange = amber-500,
-# brown = amber-600. Every hex is a canon primitive.
+# darker_background both take the floor. orange slot = orange-500, brown = orange-600 (no brown ramp). Every hex is a canon primitive.
 
 mode = "dark"
 

@@ -52,12 +52,12 @@ accent = "#42cbd2"      # cyan-400
 # --- Status hues ----------------------------------------------------------
 # The 400 steps — the dark `-strong` weights from the CSS semantic layer,
 # which is also what ../ghostty/spalvos-dark uses for both normal and bright.
-red = "#eb5d6d"         # rose-400
+red = "#eb5d6d"         # raspberry-400
 green = "#5ec990"       # emerald-400
-yellow = "#f99b56"      # amber-400
+yellow = "#f99b56"      # orange-400
 blue = "#5b7ef0"        # blue-400
-mauve = "#de54b3"       # magenta-400
+mauve = "#de54b3"       # fuchsia-400
 teal = "#7ad8dd"        # cyan-300 — one step off accent, so teal stays
                         # distinguishable from focus (the light variant has no
                         # such headroom and collapses them).
-peach = "#fdb482"       # amber-300
+peach = "#fdb482"       # orange-300

@@ -32,5 +32,5 @@ Then follow the terminal appearance by setting in `~/.pi/agent/settings.json`:
   steps, exactly like ../herdr. Light `success` is emerald-600 to match
   ghostty/fish's green slot (unambiguously green on paper).
 - Every hex is a canon primitive from ../spalvos.css; no hand-tuned values.
-- The thinking ladder ramps cyan → blue → magenta → rose within one mode's
+- The thinking ladder ramps cyan → blue → fuchsia → raspberry within one mode's
   step band so effort levels stay ordered without leaving the palette.

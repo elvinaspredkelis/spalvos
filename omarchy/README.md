@@ -44,8 +44,8 @@ omarchy-theme-set spalvos-light
 
 Both `colors.toml` files use the Omarchy v4 schema (`mode`, the four-surface
 background ladder, the four-step foreground ladder, named chromatic slots plus
-brights). The chromatic slots mirror the ghostty ANSI palettes; `orange` and
-`brown` reuse amber steps because spalvos has no orange/brown ramps. See
+brights). The chromatic slots mirror the ghostty ANSI palettes; `brown` reuses
+orange steps because spalvos has no brown ramp. See
 `preview.png` in each directory, or the source-of-truth notes in
 `../ghostty/spalvos-dark` and `../ghostty/spalvos-light`.
 
