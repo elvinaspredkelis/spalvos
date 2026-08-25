@@ -28,19 +28,37 @@ a surface can never sink below the ink.
 
 ## Ports
 
-| Port | Path | Notes |
-|------|------|-------|
-| **Tailwind / CSS** | `spalvos.css` | The source of truth — primitives + themed tokens as `@theme` custom properties. `tailwind/namespaced-spalvos.css` and `tailwind/overridden-spalvos.css` are packaging variants. |
-| **Zed** | `zed/spalvos.json` | Light + dark editor themes, full syntax map. |
-| **Neovim** | `nvim/` | `spalvos-light` / `spalvos-dark` colorschemes — both variants in `nvim/lua/spalvos.lua`, mirroring the Zed syntax map. |
-| **Ghostty** | `ghostty/` | `spalvos-dark` / `spalvos-light` terminal themes (OKLCH → sRGB). |
-| **Herdr** | `herdr/` | `[theme.custom]` blocks for the terminal workspace manager. Pins its own hexes rather than reading the ANSI palette — see the port's README for why. |
-| **Fish** | `fish/` | `.theme` files + a `conf.d` loader that follows the desktop mode, plus the Tide prompt fixes. |
-| **Omarchy** | `omarchy/` | `spalvos-dark` / `spalvos-light` desktop themes (`colors.toml` + Neovim + backgrounds). |
+Everything starts from `spalvos.css` — the OKLCH primitives and themed tokens
+live there as `@theme` custom properties, and every other port is derived from
+it. If a colour looks off somewhere, fix the primitive and reconvert; never
+hand-tweak hexes in a port.
 
-Everything downstream derives from the OKLCH primitives in `spalvos.css`. Don't
-hand-tweak hexes in a port — change the primitives, reconvert, copy the values
-back.
+- **Tailwind / CSS** — `spalvos.css` itself, plus two packaging variants in
+  `tailwind/` (namespaced and overridden).
+- **Zed** — `zed/spalvos.json`, light and dark editor themes with a full
+  syntax map.
+- **Neovim** — `nvim/`, both `spalvos-light` and `spalvos-dark` colorschemes
+  in one `spalvos.lua`, mirroring the Zed syntax map.
+- **Ghostty** — `ghostty/`, light and dark terminal themes.
+- **Herdr** — `herdr/`, `[theme.custom]` blocks for the terminal workspace
+  manager. It pins its own hexes instead of reading the ANSI palette — the
+  port's README explains why.
+- **Fish** — `fish/`, `.theme` files with a `conf.d` loader that follows the
+  desktop mode, plus fixes for the Tide prompt.
+- **Omarchy** — `omarchy/`, full desktop themes for light and dark. More
+  below.
+
+## Omarchy
+
+`omarchy/` ships `spalvos-light` and `spalvos-dark` as complete Omarchy
+desktop themes: `colors.toml`, Hyprland config, Neovim colorscheme, icons,
+and backgrounds.
+
+### Preview
+
+| Light | Dark |
+|-------|------|
+| ![Spalvos light desktop](omarchy/spalvos-light/preview.png) | ![Spalvos dark desktop](omarchy/spalvos-dark/preview.png) |
 
 ## Verify
 
@@ -69,6 +87,12 @@ practice, and it means a TUI must never paint text with them. Consumers that do
 — fish's stock theme, Tide, herdr's built-in `terminal` theme — go invisible in
 one mode or the other. The fix belongs in the consumer: bending the palette to
 suit one of them breaks all the rest.
+
+## Who uses Spalvos
+
+- [Primevise](https://primevise.com)
+- [Rinkta](https://rinkta.com)
+- [Krowk](https://krowk.com)
 
 ## License
 
