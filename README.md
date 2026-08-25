@@ -64,6 +64,7 @@ hand-tweak hexes in a port.
 | Light | Dark |
 |-------|------|
 | ![Spalvos light desktop](omarchy/spalvos-light/preview.png) | ![Spalvos dark desktop](omarchy/spalvos-dark/preview.png) |
+| ![Spalvos light lock screen](omarchy/spalvos-light/preview-unlock.png) | ![Spalvos dark lock screen](omarchy/spalvos-dark/preview-unlock.png) |
 
 ## Verify
 
