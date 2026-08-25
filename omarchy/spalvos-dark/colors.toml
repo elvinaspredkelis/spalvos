@@ -1,27 +1,40 @@
-# Spalvos Dark — Omarchy theme
-# Palette lifted verbatim from ../../ghostty/spalvos-dark (the terminal
-# port of the spalvos color system). colors0..15 = the ANSI palette;
-# accent = the cyan signature (spalvos "info/focus" tone).
-accent = "#42cbd2"
-cursor = "#ecebe9"
-foreground = "#ecebe9"
-background = "#171717"
-selection_foreground = "#ecebe9"
-selection_background = "#343331"
+# Spalvos Dark — Omarchy theme (v4 schema)
+# Palette lifted from ../../ghostty/spalvos-dark: chromatic normals at
+# the 400 step, brights at 300. Accent = the cyan signature (spalvos
+# "info/focus" tone). Surface ladder: base = paper-dark-base #171717,
+# lighter = paper-dark-raised #1f1f1f; nothing sits between the base
+# and the neutral-1000 true-black floor, so dark_background and
+# darker_background both take the floor. orange = amber-500,
+# brown = amber-600. Every hex is a canon primitive.
 
-color0 = "#343331"
-color1 = "#eb5d6d"
-color2 = "#5ec990"
-color3 = "#f99b56"
-color4 = "#5b7ef0"
-color5 = "#de54b3"
-color6 = "#42cbd2"
-color7 = "#b5b4b1"
-color8 = "#41403d"
-color9 = "#eb5d6d"
-color10 = "#5ec990"
-color11 = "#f99b56"
-color12 = "#5b7ef0"
-color13 = "#de54b3"
-color14 = "#42cbd2"
-color15 = "#d5d4d2"
+mode = "dark"
+
+accent = "#42cbd2"
+selection = "#343331"
+muted = "#908f8c"
+
+background = "#171717"
+dark_background = "#0b0a09"
+darker_background = "#0b0a09"
+lighter_background = "#1f1f1f"
+
+foreground = "#ecebe9"
+dark_foreground = "#908f8c"
+light_foreground = "#d5d4d2"
+bright_foreground = "#fcfcfb"
+
+red = "#eb5d6d"
+yellow = "#f99b56"
+orange = "#f5810f"
+green = "#5ec990"
+cyan = "#42cbd2"
+blue = "#5b7ef0"
+magenta = "#de54b3"
+brown = "#c4660d"
+
+bright_red = "#f58991"
+bright_yellow = "#fdb482"
+bright_green = "#89d7aa"
+bright_cyan = "#7ad8dd"
+bright_blue = "#82a1f7"
+bright_magenta = "#ea83c6"

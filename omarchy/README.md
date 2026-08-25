@@ -11,16 +11,17 @@ spalvos-dark/           spalvos-light/
 ├── neovim.lua          ├── neovim.lua
 ├── icons.theme         ├── icons.theme
 ├── preview.png         ├── preview.png
-└── backgrounds/        ├── light.mode          ← marks this theme "light"
-                        └── backgrounds/
+└── backgrounds/        └── backgrounds/
 ```
 
-`colors.toml` is the single source Omarchy reads to generate the terminal
-(Ghostty/Alacritty/Kitty), Waybar, Hyprland, Hyprlock, Mako, SwayOSD, Walker,
-btop, and Chromium configs. `neovim.lua` is a self-contained LazyVim
-colorscheme (no plugin dependency — there is no spalvos Neovim plugin, so the
-highlights are set inline from the same palette). `icons.theme` picks the Yaru
-accent icon set. `light.mode` (empty file) tells Omarchy the theme is light.
+Targets **Omarchy 4** (v4 `colors.toml` schema — older Omarchy versions are
+not supported). `colors.toml` is the single source Omarchy reads to generate
+the terminal (Ghostty/Alacritty/Kitty), Waybar, Hyprland, Hyprlock, Mako,
+SwayOSD, Walker, btop, and Chromium configs; its `mode` key declares the
+light/dark variant. `neovim.lua` is a self-contained LazyVim colorscheme (no
+plugin dependency — there is no spalvos Neovim plugin, so the highlights are
+set inline from the same palette). `icons.theme` picks the Yaru accent icon
+set.
 
 ## Install
 
@@ -41,8 +42,11 @@ omarchy-theme-set spalvos-light
 
 ## Palette
 
-Both themes carry the full 16-slot ANSI palette plus fg/bg/cursor/selection.
-See `preview.png` in each directory, or the source-of-truth notes in
+Both `colors.toml` files use the Omarchy v4 schema (`mode`, the four-surface
+background ladder, the four-step foreground ladder, named chromatic slots plus
+brights). The chromatic slots mirror the ghostty ANSI palettes; `orange` and
+`brown` reuse amber steps because spalvos has no orange/brown ramps. See
+`preview.png` in each directory, or the source-of-truth notes in
 `../ghostty/spalvos-dark` and `../ghostty/spalvos-light`.
 
 | role   | dark      | light     |
