@@ -23,6 +23,12 @@ Browse the palette live at [predkelis.com/spalvos](https://predkelis.com/spalvos
 |-------|------|
 | ![Spalvos light in Neovim](nvim/preview-light.png) | ![Spalvos dark in Neovim](nvim/preview-dark.png) |
 
+### Ghostty
+
+| Light | Dark |
+|-------|------|
+| ![Spalvos light in Ghostty](ghostty/preview-light.png) | ![Spalvos dark in Ghostty](ghostty/preview-dark.png) |
+
 ## Quickstart
 
 ```sh
