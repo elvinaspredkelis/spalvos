@@ -53,6 +53,14 @@ return {
       end,
     },
   },
+  {
+    "nvim-lualine/lualine.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.options = opts.options or {}
+      opts.options.theme = M.lualine("${variant}")
+    end,
+  },
 }
 `;
   const path = join(here, `spalvos-${variant}`, "neovim.lua");

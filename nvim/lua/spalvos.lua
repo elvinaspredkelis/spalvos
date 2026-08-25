@@ -450,4 +450,34 @@ function M.load(variant, opts)
   end
 end
 
+--- Build a lualine theme for a variant. Mode chips take the accent ramps
+--- with high-contrast ink; b/c sections step down the surface ladder.
+--- @param variant string|nil "light" (default) or "dark"
+--- @return table lualine theme
+function M.lualine(variant)
+  variant = variant or "light"
+  local p = M.palettes[variant]
+  local chip_fg = variant == "light" and "#fbfbfa" or "#0b0a09"
+  local modes = variant == "light"
+      and { normal = "#3858e8", insert = "#13955e", visual = "#a70881",
+            replace = "#b41b3c", command = "#c4660d" }
+      or  { normal = "#82a1f7", insert = "#5ec990", visual = "#ea83c6",
+            replace = "#f58991", command = "#f99b56" }
+  local function mode(color)
+    return {
+      a = { fg = chip_fg, bg = color, gui = "bold" },
+      b = { fg = p.fg, bg = p.bg_element or p.bg_dark },
+      c = { fg = p.muted, bg = p.bg_dark },
+    }
+  end
+  local theme = {}
+  for name, color in pairs(modes) do theme[name] = mode(color) end
+  theme.inactive = {
+    a = { fg = p.comment, bg = p.bg_dark },
+    b = { fg = p.comment, bg = p.bg_dark },
+    c = { fg = p.gutter, bg = p.bg_dark },
+  }
+  return theme
+end
+
 return M
