@@ -212,7 +212,7 @@
             "color": "#a70881"
           },
           "label": {
-            "color": "#954d0a"
+            "color": "#c4660d"
           },
           "link_text": {
             "color": "#087075"
@@ -278,10 +278,10 @@
             "font_weight": 700
           },
           "type": {
-            "color": "#954d0a"
+            "color": "#c4660d"
           },
           "type.builtin": {
-            "color": "#954d0a"
+            "color": "#c4660d"
           },
           "variable": {
             "color": "#565552"
