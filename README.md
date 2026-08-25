@@ -26,6 +26,22 @@ The invariant that makes dark safe: at the dark end the darkest surface and the
 darkest ink are the *same* primitive (`neutral-1000`, the true-black floor), so
 a surface can never sink below the ink.
 
+## Quickstart
+
+```sh
+git clone https://github.com/elvinaspredkelis/spalvos
+cd spalvos
+bin/spalvos-install
+```
+
+Copies each port to where its app reads it — ghostty, fish, zed, pi, Omarchy —
+and skips anything you don't have. Pick ports with `bin/spalvos-install pi
+omarchy`; `--list` shows what's installed and whether it drifted from the repo.
+
+On Omarchy you can skip the clone entirely and install the theme straight from
+the menu: [omarchy-spalvos-light](https://github.com/elvinaspredkelis/omarchy-spalvos-light) /
+[omarchy-spalvos-dark](https://github.com/elvinaspredkelis/omarchy-spalvos-dark).
+
 ## Ports
 
 Everything starts from `spalvos.css` — the OKLCH primitives and themed tokens
