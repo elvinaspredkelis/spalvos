@@ -86,6 +86,12 @@ The invariant that makes dark safe: at the dark end the darkest surface and the
 darkest ink are the *same* primitive (`neutral-1000`, the true-black floor), so
 a surface can never sink below the ink.
 
+## Notable mentions
+
+Spalvos was built on the shoulders of giants. A warm thank you goes out to:
+
+- [Flexoki](https://github.com/kepano/flexoki) by @kepano
+
 ## Verify
 
 Accessibility is asserted, not eyeballed — CI runs both on every push:
