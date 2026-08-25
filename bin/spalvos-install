@@ -74,6 +74,12 @@ install_port() {
   done
   echo "spalvos-install: $port -> $dest"
 
+  if [[ "$port" == omarchy ]]; then
+    # The theme picker renders from a preview cache, not the theme dirs.
+    rm -f "$HOME/.cache/omarchy/theme-selector/previews/spalvos-light.png" \
+      "$HOME/.cache/omarchy/theme-selector/previews/spalvos-dark.png"
+  fi
+
   # Omarchy renders generated configs from the theme at set-time, so a copy
   # alone leaves the desktop stale — re-apply if a spalvos theme is active.
   if [[ "$port" == omarchy ]] && command -v omarchy-theme-set >/dev/null 2>&1; then
