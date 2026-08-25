@@ -13,6 +13,7 @@ Browse the palette live at [predkelis.com/spalvos](https://predkelis.com/spalvos
 | Light | Dark |
 |-------|------|
 | ![Spalvos light desktop](omarchy/spalvos-light/preview.png) | ![Spalvos dark desktop](omarchy/spalvos-dark/preview.png) |
+| ![Spalvos light in Neovim](nvim/preview-light.png) | ![Spalvos dark in Neovim](nvim/preview-dark.png) |
 | ![Spalvos light lock screen](omarchy/spalvos-light/preview-unlock.png) | ![Spalvos dark lock screen](omarchy/spalvos-dark/preview-unlock.png) |
 
 ## Quickstart
