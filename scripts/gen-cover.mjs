@@ -53,25 +53,40 @@ const PAPER = token("paper-base"), INK = token("neutral-800");
 const MUTED = token("neutral-500"), DARK_MUTED = token("neutral-400");
 const DARK = "#171717"; // paper-dark-base, the editor/desktop canvas
 
-const W = 1600, H = 900, SPLIT = 560;
+const W = 1600, H = 900;
+const PAD = 100;          // outer padding
+const GAP = 24;           // gap between cells
+const COLS = 6, CELL_H = 150, RADIUS = 12;
+const CELL_W = Math.floor((W - 2 * PAD - (COLS - 1) * GAP) / COLS);
+const GRID_W = COLS * CELL_W + (COLS - 1) * GAP;
+const X0 = Math.round((W - GRID_W) / 2);
+const ROW1 = 456, ROW2 = ROW1 + CELL_H + GAP;
+
 const FONT_B = "/usr/share/fonts/TTF/JetBrainsMonoNerdFont-Bold.ttf";
 const FONT_R = "/usr/share/fonts/TTF/JetBrainsMonoNerdFont-Regular.ttf";
 
-const args = ["-size", `${W}x${H}`, `xc:${PAPER}`, "-fill", DARK, "-draw", `rectangle 0,${SPLIT} ${W},${H}`];
+const args = ["-size", `${W}x${H}`, `xc:${PAPER}`];
+
+// The dark row sits on its own inset panel, so the card shows both canvases,
+// not just both sets of inks.
+args.push("-fill", DARK, "-draw",
+  `roundrectangle ${X0 - GAP},${ROW2 - GAP} ${X0 + GRID_W + GAP},${ROW2 + CELL_H + GAP} ${RADIUS + 6},${RADIUS + 6}`);
+
 const row = (cols, y) => {
-  let x = 120;
+  let x = X0;
   for (const c of cols) {
-    args.push("-fill", c, "-draw", `roundrectangle ${x},${y} ${x + 200},${y + 90} 10,10`);
-    x += 232;
+    args.push("-fill", c, "-draw", `roundrectangle ${x},${y} ${x + CELL_W},${y + CELL_H} ${RADIUS},${RADIUS}`);
+    x += CELL_W + GAP;
   }
 };
-row(light, 400);
-row(dark, 660);
+row(light, ROW1);
+row(dark, ROW2);
+
 args.push(
-  "-font", FONT_B, "-pointsize", "96", "-fill", INK, "-annotate", "+120+210", "Spalvos",
-  "-font", FONT_R, "-pointsize", "36", "-fill", MUTED, "-annotate", "+124+272", "One palette. Every surface.",
-  "-font", FONT_R, "-pointsize", "24", "-fill", MUTED, "-annotate", "+120+372", "light",
-  "-font", FONT_R, "-pointsize", "24", "-fill", DARK_MUTED, "-annotate", "+120+632", "dark",
+  "-font", FONT_B, "-pointsize", "104", "-fill", INK, "-annotate", `+${X0}+250`, "Spalvos",
+  "-font", FONT_R, "-pointsize", "38", "-fill", MUTED, "-annotate", `+${X0 + 4}+316`, "One palette. Every surface.",
+  "-font", FONT_R, "-pointsize", "22", "-fill", MUTED, "-annotate", `+${X0}+${ROW1 - 18}`, "light",
+  "-font", FONT_R, "-pointsize", "22", "-fill", DARK_MUTED, "-annotate", `+${X0}+${ROW2 - 18}`, "dark",
   join(root, "assets/cover.png"),
 );
 execFileSync("magick", args);
