@@ -1,3 +1,5 @@
+<img src="assets/cover.png" alt="Spalvos — one palette, every surface." width="100%">
+
 # Spalvos
 
 **One palette. Every surface.**
